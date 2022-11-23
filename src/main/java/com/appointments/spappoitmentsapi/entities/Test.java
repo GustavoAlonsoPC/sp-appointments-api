@@ -1,11 +1,10 @@
 package com.appointments.spappoitmentsapi.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "tests")
 public class Tests {
 
     //attributes
@@ -14,6 +13,9 @@ public class Tests {
     private Long id;
     private String name;
     private String description;
+
+    @OneToMany(mappedBy = "tests", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Appointments> appointments;
 
     //constructors
 
