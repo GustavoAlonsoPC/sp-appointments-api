@@ -1,12 +1,12 @@
 package com.appointments.spappoitmentsapi.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jdk.dynalink.linker.LinkerServices;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class Affiliates {
+public class Affiliate {
 
     //attributes
     @Id
@@ -16,12 +16,15 @@ public class Affiliates {
     private Integer age;
     private String mail;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Appointment> appointments;
+
     //constructors
 
-    public Affiliates() {
+    public Affiliate() {
     }
 
-    public Affiliates(Long id, String name, Integer age, String mail) {
+    public Affiliate(Long id, String name, Integer age, String mail) {
         this.id = id;
         this.name = name;
         this.age = age;

@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "tests")
-public class Tests {
+public class Test {
 
     //attributes
     @Id
@@ -14,15 +14,15 @@ public class Tests {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "tests", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Appointments> appointments;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Appointment> appointments;
 
     //constructors
 
-    public Tests() {
+    public Test() {
     }
 
-    public Tests(Long id, String name, String description) {
+    public Test(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;

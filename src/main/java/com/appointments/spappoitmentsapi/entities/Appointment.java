@@ -5,37 +5,37 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "Appointments", uniqueConstraints = {
-        @UniqueConstraint(name = "uc_appointments_id_test", columnNames = {"id_test"})
-})
-public class Appointments {
+@Table(name = "Appointments")
+public class Appointment {
     //attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
     private LocalTime hour;
-    private Long id_test;
-    private Long id_affiliate;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_test")
+    private Test test;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_affiliate")
+    private Affiliate affiliate;
 
     //constructors
 
-    public Appointments() {
+    public Appointment() {
     }
 
-    public Appointments(Long id, LocalDate date, LocalTime hour, Long id_test, Long id_affiliate) {
+    public Appointment(Long id, LocalDate date, LocalTime hour) {
         this.id = id;
         this.date = date;
         this.hour = hour;
-        this.id_test = id_test;
-        this.id_affiliate = id_affiliate;
     }
 
-    public Appointments(LocalDate date, LocalTime hour, Long id_test, Long id_affiliate) {
+    public Appointment(LocalDate date, LocalTime hour) {
         this.date = date;
         this.hour = hour;
-        this.id_test = id_test;
-        this.id_affiliate = id_affiliate;
     }
 
     //getters and setters
@@ -64,23 +64,6 @@ public class Appointments {
         this.hour = hour;
     }
 
-    public Long getId_test() {
-        return id_test;
-    }
-
-    public void setId_test(Long id_test) {
-        this.id_test = id_test;
-    }
-
-    public Long getId_affiliate() {
-        return id_affiliate;
-    }
-
-    public void setId_affiliate(Long id_affiliate) {
-        this.id_affiliate = id_affiliate;
-    }
-
-
     //toString
 
     @Override
@@ -89,8 +72,6 @@ public class Appointments {
                 "id=" + id +
                 ", date=" + date +
                 ", hour=" + hour +
-                ", id_test=" + id_test +
-                ", id_affiliate=" + id_affiliate +
                 '}';
     }
 }
