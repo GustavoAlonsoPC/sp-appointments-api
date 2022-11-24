@@ -17,16 +17,14 @@ import java.util.List;
 @RestController
 public class HelloController {
 
+    @Autowired
     TestRepository testRepository;
-    AffiliateRepository affiliateRepository;
-    AppointmentRepository appointmentRepository;
 
     @Autowired
-    public HelloController(TestRepository testRepository, AffiliateRepository affiliateRepository, AppointmentRepository appointmentRepository) {
-        this.testRepository = testRepository;
-        this.affiliateRepository = affiliateRepository;
-        this.appointmentRepository = appointmentRepository;
-    }
+    AffiliateRepository affiliateRepository;
+
+    @Autowired
+    AppointmentRepository appointmentRepository;
 
     @GetMapping ("/prueba/tests")
     public List<Test> pruebaGet() {

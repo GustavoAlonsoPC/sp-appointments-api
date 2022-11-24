@@ -16,7 +16,7 @@ public class Affiliate {
     private Integer age;
     private String mail;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "affiliate", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments;
 
     //constructors
@@ -65,6 +65,14 @@ public class Affiliate {
         this.mail = mail;
     }
 
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+        for (Appointment appointment : appointments) appointment.setAffiliate(this);
+    }
 
     //toString
 

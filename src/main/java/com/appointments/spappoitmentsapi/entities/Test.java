@@ -14,7 +14,7 @@ public class Test {
     private String name;
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments;
 
     //constructors
@@ -26,6 +26,13 @@ public class Test {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Test(Long id, String name, String description, List<Appointment> appointments) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.appointments = appointments;
     }
 
     //getter and setters
@@ -54,6 +61,15 @@ public class Test {
         this.description = description;
     }
 
+    //appointments
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+        for (Appointment appointment : appointments) appointment.setTest(this);
+    }
 
     //toString
 
