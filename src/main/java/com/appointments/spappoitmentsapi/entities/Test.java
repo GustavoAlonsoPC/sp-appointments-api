@@ -1,5 +1,7 @@
 package com.appointments.spappoitmentsapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,7 +16,9 @@ public class Test {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "id_test")
+    @JsonIgnore
     private List<Appointment> appointments;
 
     //constructors
