@@ -1,5 +1,6 @@
 package com.appointments.spappoitmentsapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jdk.dynalink.linker.LinkerServices;
 
 import javax.persistence.*;
@@ -16,7 +17,9 @@ public class Affiliate {
     private Integer age;
     private String mail;
 
-    @OneToMany(mappedBy = "affiliate", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "id_affiliate")
+    @JsonIgnore
     private List<Appointment> appointments;
 
     //constructors
