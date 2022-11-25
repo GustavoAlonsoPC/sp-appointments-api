@@ -1,7 +1,6 @@
 package com.appointments.spappoitmentsapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.dynalink.linker.LinkerServices;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "affiliates")
 public class Affiliate {
 
     //attributes
