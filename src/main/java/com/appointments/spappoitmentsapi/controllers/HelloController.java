@@ -6,6 +6,7 @@ import com.appointments.spappoitmentsapi.entities.Test;
 import com.appointments.spappoitmentsapi.repositories.AffiliateRepository;
 import com.appointments.spappoitmentsapi.repositories.AppointmentRepository;
 import com.appointments.spappoitmentsapi.repositories.TestRepository;
+import com.appointments.spappoitmentsapi.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,12 @@ import java.util.List;
 @RestController
 public class HelloController {
 
+    private final TestService testService;
+
+    @Autowired
+    public HelloController(TestService testService) {
+        this.testService = testService;
+    }
     @Autowired
     TestRepository testRepository;
 
@@ -28,7 +35,7 @@ public class HelloController {
 
     @GetMapping ("/prueba/tests")
     public List<Test> pruebaGet() {
-        return testRepository.findAll();
+        return testService.getAllTests();
     }
 
     @GetMapping ("/prueba/affiliates")
