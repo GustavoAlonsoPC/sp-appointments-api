@@ -15,14 +15,10 @@ public class Affiliate {
 
     //attributes
     @Id
-    @Getter @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Getter @Setter
     private String name;
-    @Getter @Setter
     private Integer age;
-    @Getter @Setter
     private String mail;
 
     @OneToMany(orphanRemoval = true)

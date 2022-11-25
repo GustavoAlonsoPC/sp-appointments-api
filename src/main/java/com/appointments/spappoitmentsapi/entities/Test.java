@@ -16,11 +16,8 @@ public class Test {
     //attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
     private Long id;
-    @Getter @Setter
     private String name;
-    @Getter @Setter
     private String description;
 
     @OneToMany(orphanRemoval = true)
