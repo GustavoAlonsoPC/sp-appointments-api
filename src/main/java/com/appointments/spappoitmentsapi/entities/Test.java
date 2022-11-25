@@ -1,10 +1,14 @@
 package com.appointments.spappoitmentsapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tests")
 public class Test {
@@ -12,77 +16,15 @@ public class Test {
     //attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     private Long id;
+    @Getter @Setter
     private String name;
+    @Getter @Setter
     private String description;
 
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "id_test")
     @JsonIgnore
     private List<Appointment> appointments;
-
-    //constructors
-
-    public Test() {
-    }
-
-    public Test(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Test(Long id, String name, String description, List<Appointment> appointments) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.appointments = appointments;
-    }
-
-    //getter and setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    //appointments
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
-        for (Appointment appointment : appointments) appointment.setTest(this);
-    }
-
-    //toString
-
-    @Override
-    public String toString() {
-        return "Tests{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }
