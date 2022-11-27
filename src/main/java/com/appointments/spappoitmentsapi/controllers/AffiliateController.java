@@ -1,5 +1,6 @@
 package com.appointments.spappoitmentsapi.controllers;
 
+import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
 import com.appointments.spappoitmentsapi.entities.Affiliate;
 import com.appointments.spappoitmentsapi.services.AffiliateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class AffiliateController {
     public AffiliateController(AffiliateService affiliateService) {
         this.affiliateService = affiliateService;
     }
-    
+
     @GetMapping
-    public List<Affiliate> getAllAffiliates() {
+    public List<AffiliateDTO> getAllAffiliates() {
         return affiliateService.getAll();
     }
 }
