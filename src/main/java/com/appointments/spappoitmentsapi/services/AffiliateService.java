@@ -34,12 +34,16 @@ public class AffiliateService {
     }
 
     public AffiliateDTO post(AffiliateDTO affiliateDTO) {
-        if (affiliateDTO.getId() <= 0 || affiliateDTO != null) {
+        if (affiliateDTO.getId() != null) {
             System.out.println("Trying to POST with an ID Field");
             return null;
         }
+
+        if (affiliateDTO.getName() == null || affiliateDTO.getAge() == null) {
+            System.out.println("Missing requerided data");
+            return null;
+        }
         Affiliate affiliate = modelMapper.map(affiliateDTO, Affiliate.class);
-        affiliateRepository.save(affiliate);
-        return affiliateDTO;
+        return modelMapper.map(affiliateRepository.save(affiliate), AffiliateDTO.class);
     }
 }
