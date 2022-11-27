@@ -6,9 +6,7 @@ import com.appointments.spappoitmentsapi.services.AffiliateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +26,11 @@ public class AffiliateController {
         List<AffiliateDTO> affiliateDTOList = affiliateService.getAll();
         if (affiliateDTOList.isEmpty()) return ResponseEntity.noContent().build();
         return new ResponseEntity<List<AffiliateDTO>>(affiliateDTOList, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<AffiliateDTO> post(@RequestBody AffiliateDTO affiliateDTO) {
+        affiliateDTO = affiliateService.post(affiliateDTO);
+        return affiliateDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<AffiliateDTO>(affiliateDTO, HttpStatus.CREATED);
     }
 }
