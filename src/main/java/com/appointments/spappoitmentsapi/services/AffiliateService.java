@@ -4,6 +4,7 @@ import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
 import com.appointments.spappoitmentsapi.entities.Affiliate;
 import com.appointments.spappoitmentsapi.repositories.AffiliateRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,15 @@ public class AffiliateService {
             affiliateDTOList.add(affiliateDTO);
         }
         return affiliateDTOList;
+    }
+
+    public AffiliateDTO post(AffiliateDTO affiliateDTO) {
+        if (affiliateDTO.getId() <= 0 || affiliateDTO != null) {
+            System.out.println("Trying to POST with an ID Field");
+            return null;
+        }
+        Affiliate affiliate = modelMapper.map(affiliateDTO, Affiliate.class);
+        affiliateRepository.save(affiliate);
+        return affiliateDTO;
     }
 }
