@@ -1,6 +1,6 @@
 package com.appointments.spappoitmentsapi.services;
 
-import com.appointments.spappoitmentsapi.dto.AppointmentsDTO;
+import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
 import com.appointments.spappoitmentsapi.entities.Appointment;
 import com.appointments.spappoitmentsapi.repositories.AppointmentRepository;
 import org.modelmapper.ModelMapper;
@@ -22,13 +22,33 @@ public class AppointmentService {
         this.modelMapper = modelMapper;
     }
 
-    public List<AppointmentsDTO> getAll() {
+    public List<AppointmentDTO> getAll() {
         List<Appointment> appointments = appointmentRepository.findAll();
-        List<AppointmentsDTO> appointmentsDTOList = new ArrayList<>();
+        List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
         for (Appointment app : appointments) {
-            AppointmentsDTO appointmentsDTO = modelMapper.map(app, AppointmentsDTO.class);
-            appointmentsDTOList.add(appointmentsDTO);
+            AppointmentDTO appointmentDTO = modelMapper.map(app, AppointmentDTO.class);
+            appointmentDTOList.add(appointmentDTO);
         }
-        return appointmentsDTOList;
+        return appointmentDTOList;
+    }
+
+    public AppointmentDTO post(AppointmentDTO appointmentDTO) {
+        if (appointmentDTO.getId() != null) {
+            System.out.println("Trying to POST with an ID Field");
+            return null;
+        }
+
+        if (appointmentDTO.getIdTest() == null || appointmentDTO.getIdAffiliate() == null) {
+            System.out.println("Missing requerided ID data");
+            return null;
+        }
+
+        if (appointmentDTO.getDateAppointment() == null || appointmentDTO.getHourAppointment() == null) {
+            System.out.println("Missing requerided TIME data");
+            return null;
+        }
+
+        Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
+        return modelMapper.map(appointmentRepository.save(appointment), AppointmentDTO.class);
     }
 }
