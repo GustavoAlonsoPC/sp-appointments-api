@@ -45,4 +45,9 @@ public class TestController {
         testDTO = testService.put(testDTO);
         return testDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(testDTO, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        return testService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
 }
