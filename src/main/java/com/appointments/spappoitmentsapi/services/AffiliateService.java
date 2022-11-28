@@ -54,4 +54,14 @@ public class AffiliateService {
         Affiliate affiliate = affiliateRepository.findById(id).get();
         return modelMapper.map(affiliate, AffiliateDTO.class);
     }
+
+    public AffiliateDTO put(AffiliateDTO affiliateDTO) {
+        if (affiliateDTO.getId() == null) return null;
+        if (!affiliateRepository.existsById(affiliateDTO.getId())) return null;
+        this.modelMapper.getConfiguration().setSkipNullEnabled(true);
+        Affiliate affiliate = affiliateRepository.findById(affiliateDTO.getId()).get();
+        modelMapper.map(affiliateDTO, affiliate);
+        affiliateRepository.save(affiliate);
+        return modelMapper.map(affiliate, AffiliateDTO.class);
+    }
 }
