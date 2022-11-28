@@ -1,5 +1,6 @@
 package com.appointments.spappoitmentsapi.controllers;
 
+import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
 import com.appointments.spappoitmentsapi.dto.TestDTO;
 import com.appointments.spappoitmentsapi.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,11 @@ public class TestController {
     public ResponseEntity<TestDTO> getByID(@PathVariable Long id) {
         TestDTO testDTO = testService.getByID(id);
         return testDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(testDTO, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<TestDTO> put(@RequestBody TestDTO testDTO) {
+        testDTO = testService.put(testDTO);
+        return testDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(testDTO, HttpStatus.CREATED);
     }
 }
