@@ -51,4 +51,13 @@ public class AppointmentService {
         Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
         return modelMapper.map(appointmentRepository.save(appointment), AppointmentDTO.class);
     }
+
+    public AppointmentDTO getByID(Long id) {
+        if (!appointmentRepository.existsById(id)) {
+            System.out.println("Do not exist");
+            return null;
+        }
+        Appointment appointment = appointmentRepository.findById(id).get();
+        return modelMapper.map(appointment, AppointmentDTO.class);
+    }
 }
