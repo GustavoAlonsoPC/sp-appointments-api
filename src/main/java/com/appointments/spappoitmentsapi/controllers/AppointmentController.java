@@ -1,8 +1,10 @@
 package com.appointments.spappoitmentsapi.controllers;
 
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
+import com.appointments.spappoitmentsapi.entities.Appointment;
 import com.appointments.spappoitmentsapi.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,5 +50,13 @@ public class AppointmentController {
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         return appointmentService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(params = "idAffiliate")
+    public ResponseEntity<List<AppointmentDTO>> getByAffiliateID(@RequestParam Long idAffiliate) {
+        List<AppointmentDTO> appointmentDTOList = appointmentService.getByAffiliateID(idAffiliate);
+        if (appointmentDTOList == null) return ResponseEntity.notFound().build();
+        if (appointmentDTOList.isEmpty()) return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(appointmentDTOList, HttpStatus.OK);
     }
 }
