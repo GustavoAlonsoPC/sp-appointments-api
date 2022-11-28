@@ -2,6 +2,7 @@ package com.appointments.spappoitmentsapi.services;
 
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
 import com.appointments.spappoitmentsapi.entities.Appointment;
+import com.appointments.spappoitmentsapi.repositories.AffiliateRepository;
 import com.appointments.spappoitmentsapi.repositories.AppointmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,16 @@ import java.util.List;
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final AffiliateRepository affiliateRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public AppointmentService(AppointmentRepository appointmentRepository, ModelMapper modelMapper) {
+    public AppointmentService(AppointmentRepository appointmentRepository,
+                              ModelMapper modelMapper,
+                              AffiliateRepository affiliateRepository) {
         this.appointmentRepository = appointmentRepository;
         this.modelMapper = modelMapper;
+        this.affiliateRepository = affiliateRepository;
     }
 
     public List<AppointmentDTO> getAll() {
@@ -77,5 +82,17 @@ public class AppointmentService {
             return true;
         }
         return false;
+    }
+
+    public List<AppointmentDTO> getByAffiliateID(Long idAffiliate) {
+
+        if (!affiliateRepository.existsById(idAffiliate)) return null;
+        List<Appointment> appointments = appointmentRepository.getAppointmentByAffiliateId(idAffiliate);
+        List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
+        for (Appointment app : appointments) {
+            AppointmentDTO appointmentDTO = modelMapper.map(app, AppointmentDTO.class);
+            appointmentDTOList.add(appointmentDTO);
+        }
+        return appointmentDTOList;
     }
 }
