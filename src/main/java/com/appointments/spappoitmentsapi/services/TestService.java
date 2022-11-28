@@ -46,4 +46,12 @@ public class TestService {
         return modelMapper.map(testRepository.save(test), TestDTO.class);
     }
 
+    public TestDTO getByID(Long id) {
+        if (!testRepository.existsById(id)) {
+            System.out.println("Do not exist");
+            return null;
+        }
+        Test test = testRepository.findById(id).get();
+        return modelMapper.map(test, TestDTO.class);
+    }
 }
