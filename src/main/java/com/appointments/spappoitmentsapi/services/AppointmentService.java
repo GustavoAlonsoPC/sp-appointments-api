@@ -4,6 +4,7 @@ import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
 import com.appointments.spappoitmentsapi.entities.Appointment;
 import com.appointments.spappoitmentsapi.repositories.AffiliateRepository;
 import com.appointments.spappoitmentsapi.repositories.AppointmentRepository;
+import com.appointments.spappoitmentsapi.repositories.TestRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,18 @@ public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final AffiliateRepository affiliateRepository;
+    private final TestRepository testRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
     public AppointmentService(AppointmentRepository appointmentRepository,
                               ModelMapper modelMapper,
-                              AffiliateRepository affiliateRepository) {
+                              AffiliateRepository affiliateRepository,
+                              TestRepository testRepository) {
         this.appointmentRepository = appointmentRepository;
         this.modelMapper = modelMapper;
         this.affiliateRepository = affiliateRepository;
+        this.testRepository  = testRepository;
     }
 
     public List<AppointmentDTO> getAll() {
@@ -45,6 +49,12 @@ public class AppointmentService {
 
         if (appointmentDTO.getIdTest() == null || appointmentDTO.getIdAffiliate() == null) {
             System.out.println("Missing requerided ID data");
+            return null;
+        }
+
+        if (!affiliateRepository.existsById(appointmentDTO.getIdAffiliate())
+                || !testRepository.existsById(appointmentDTO.getIdTest())) {
+            System.out.println("Entities do not exist!");
             return null;
         }
 
