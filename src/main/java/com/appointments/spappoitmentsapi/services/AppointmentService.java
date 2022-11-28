@@ -1,9 +1,7 @@
 package com.appointments.spappoitmentsapi.services;
 
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
-import com.appointments.spappoitmentsapi.dto.TestDTO;
 import com.appointments.spappoitmentsapi.entities.Appointment;
-import com.appointments.spappoitmentsapi.entities.Test;
 import com.appointments.spappoitmentsapi.repositories.AppointmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +69,13 @@ public class AppointmentService {
         modelMapper.map(appointmentDTO, appointment);
         appointmentRepository.save(appointment);
         return modelMapper.map(appointment, AppointmentDTO.class);
+    }
+
+    public Boolean delete(Long id) {
+        if (appointmentRepository.existsById(id)) {
+            appointmentRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
