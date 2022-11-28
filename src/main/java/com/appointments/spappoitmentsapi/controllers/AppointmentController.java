@@ -1,13 +1,12 @@
 package com.appointments.spappoitmentsapi.controllers;
 
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
+import com.appointments.spappoitmentsapi.dto.TestDTO;
 import com.appointments.spappoitmentsapi.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +26,11 @@ public class AppointmentController {
         List<AppointmentDTO> appointmentDTOList = appointmentService.getAll();
         if (appointmentDTOList.isEmpty()) return ResponseEntity.noContent().build();
         return new ResponseEntity<>(appointmentDTOList, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<AppointmentDTO> post(@RequestBody AppointmentDTO appointmentDTO) {
+        appointmentDTO = appointmentService.post(appointmentDTO);
+        return appointmentDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(appointmentDTO, HttpStatus.CREATED);
     }
 }
