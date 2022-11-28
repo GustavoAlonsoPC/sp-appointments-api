@@ -1,7 +1,6 @@
 package com.appointments.spappoitmentsapi.controllers;
 
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
-import com.appointments.spappoitmentsapi.dto.TestDTO;
 import com.appointments.spappoitmentsapi.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,5 +31,11 @@ public class AppointmentController {
     public ResponseEntity<AppointmentDTO> post(@RequestBody AppointmentDTO appointmentDTO) {
         appointmentDTO = appointmentService.post(appointmentDTO);
         return appointmentDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(appointmentDTO, HttpStatus.CREATED);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<AppointmentDTO> getByID(@PathVariable Long id) {
+        AppointmentDTO appointmentDTO = appointmentService.getByID(id);
+        return appointmentDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
     }
 }
