@@ -1,7 +1,6 @@
 package com.appointments.spappoitmentsapi.controllers;
 
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
-import com.appointments.spappoitmentsapi.dto.TestDTO;
 import com.appointments.spappoitmentsapi.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,5 +43,10 @@ public class AppointmentController {
     public ResponseEntity<AppointmentDTO> put(@RequestBody AppointmentDTO appointmentDTO) {
         appointmentDTO = appointmentService.put(appointmentDTO);
         return appointmentDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(appointmentDTO, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        return appointmentService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }
