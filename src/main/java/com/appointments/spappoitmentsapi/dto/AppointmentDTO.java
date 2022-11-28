@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
-public class AppointmentsDTO {
+public class AppointmentDTO {
 
     private Long id;
     @JsonFormat(pattern = "dd/MM/yyyy")

@@ -1,6 +1,6 @@
 package com.appointments.spappoitmentsapi.controllers;
 
-import com.appointments.spappoitmentsapi.dto.AppointmentsDTO;
+import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
 import com.appointments.spappoitmentsapi.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +23,9 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AppointmentsDTO>> getList() {
-        List<AppointmentsDTO> appointmentsDTOList = appointmentService.getAll();
-        if (appointmentsDTOList.isEmpty()) return ResponseEntity.noContent().build();
-        return new ResponseEntity<>(appointmentsDTOList, HttpStatus.OK);
+    public ResponseEntity<List<AppointmentDTO>> getList() {
+        List<AppointmentDTO> appointmentDTOList = appointmentService.getAll();
+        if (appointmentDTOList.isEmpty()) return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(appointmentDTOList, HttpStatus.OK);
     }
 }
