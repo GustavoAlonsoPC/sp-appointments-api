@@ -1,7 +1,6 @@
 package com.appointments.spappoitmentsapi.controllers;
 
 import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
-import com.appointments.spappoitmentsapi.entities.Affiliate;
 import com.appointments.spappoitmentsapi.services.AffiliateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
