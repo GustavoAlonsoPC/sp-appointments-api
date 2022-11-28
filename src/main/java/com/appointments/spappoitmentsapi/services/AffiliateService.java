@@ -4,7 +4,6 @@ import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
 import com.appointments.spappoitmentsapi.entities.Affiliate;
 import com.appointments.spappoitmentsapi.repositories.AffiliateRepository;
 import org.modelmapper.ModelMapper;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class AffiliateService {
 
     private final AffiliateRepository affiliateRepository;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public AffiliateService(AffiliateRepository affiliateRepository, ModelMapper modelMapper) {
@@ -45,5 +44,14 @@ public class AffiliateService {
         }
         Affiliate affiliate = modelMapper.map(affiliateDTO, Affiliate.class);
         return modelMapper.map(affiliateRepository.save(affiliate), AffiliateDTO.class);
+    }
+
+    public AffiliateDTO getByID(Long id) {
+        if (!affiliateRepository.existsById(id)) {
+            System.out.println("Do not exist");
+            return null;
+        }
+        Affiliate affiliate = affiliateRepository.findById(id).get();
+        return modelMapper.map(affiliate, AffiliateDTO.class);
     }
 }
