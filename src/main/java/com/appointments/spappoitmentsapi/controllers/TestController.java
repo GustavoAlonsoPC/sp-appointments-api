@@ -32,4 +32,10 @@ public class TestController {
         testDTO = testService.post(testDTO);
         return testDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(testDTO, HttpStatus.CREATED);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<TestDTO> getByID(@PathVariable Long id) {
+        TestDTO testDTO = testService.getByID(id);
+        return testDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(testDTO, HttpStatus.OK);
+    }
 }
