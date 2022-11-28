@@ -64,4 +64,12 @@ public class TestService {
         testRepository.save(test);
         return modelMapper.map(test, TestDTO.class);
     }
+
+    public Boolean delete(Long id) {
+        if (testRepository.existsById(id)) {
+            testRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
