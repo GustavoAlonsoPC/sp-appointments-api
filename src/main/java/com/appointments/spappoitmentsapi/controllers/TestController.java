@@ -1,6 +1,5 @@
 package com.appointments.spappoitmentsapi.controllers;
 
-import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
 import com.appointments.spappoitmentsapi.dto.TestDTO;
 import com.appointments.spappoitmentsapi.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
