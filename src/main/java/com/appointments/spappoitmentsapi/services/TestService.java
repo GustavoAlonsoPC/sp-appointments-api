@@ -32,4 +32,18 @@ public class TestService {
         return testDTOList;
     }
 
+    public TestDTO post(TestDTO testDTO) {
+        if (testDTO.getId() != null) {
+            System.out.println("Trying to POST with an ID Field");
+            return null;
+        }
+
+        if (testDTO.getName() == null || testDTO.getDescription() == null) {
+            System.out.println("Missing requerided data");
+            return null;
+        }
+        Test test = modelMapper.map(testDTO, Test.class);
+        return modelMapper.map(testRepository.save(test), TestDTO.class);
+    }
+
 }
