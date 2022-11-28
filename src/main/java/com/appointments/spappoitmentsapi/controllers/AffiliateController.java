@@ -39,4 +39,10 @@ public class AffiliateController {
         AffiliateDTO affiliateDTO = affiliateService.getByID(id);
         return affiliateDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<AffiliateDTO>(affiliateDTO, HttpStatus.OK);
     }
+
+    @PutMapping
+    public ResponseEntity<AffiliateDTO> put(@RequestBody AffiliateDTO affiliateDTO) {
+        affiliateDTO = affiliateService.put(affiliateDTO);
+        return affiliateDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<AffiliateDTO>(affiliateDTO, HttpStatus.CREATED);
+    }
 }
