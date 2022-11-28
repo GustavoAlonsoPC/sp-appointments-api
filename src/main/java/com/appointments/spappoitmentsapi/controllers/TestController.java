@@ -5,9 +5,7 @@ import com.appointments.spappoitmentsapi.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,11 @@ public class TestController {
         List<TestDTO> testDTOList = testService.getAll();
         if (testDTOList.isEmpty()) return ResponseEntity.noContent().build();
         return new ResponseEntity<>(testDTOList, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<TestDTO> post(@RequestBody TestDTO testDTO) {
+        testDTO = testService.post(testDTO);
+        return testDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(testDTO, HttpStatus.CREATED);
     }
 }
