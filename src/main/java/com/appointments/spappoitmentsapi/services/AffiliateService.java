@@ -64,4 +64,12 @@ public class AffiliateService {
         affiliateRepository.save(affiliate);
         return modelMapper.map(affiliate, AffiliateDTO.class);
     }
+
+    public Boolean delete(Long id) {
+        if (affiliateRepository.existsById(id)) {
+            affiliateRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
