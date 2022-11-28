@@ -54,4 +54,14 @@ public class TestService {
         Test test = testRepository.findById(id).get();
         return modelMapper.map(test, TestDTO.class);
     }
+
+    public TestDTO put(TestDTO testDTO) {
+        if (testDTO.getId() == null) return null;
+        if (!testRepository.existsById(testDTO.getId())) return null;
+        this.modelMapper.getConfiguration().setSkipNullEnabled(true);
+        Test test = testRepository.findById(testDTO.getId()).get();
+        modelMapper.map(testDTO, test);
+        testRepository.save(test);
+        return modelMapper.map(test, TestDTO.class);
+    }
 }
