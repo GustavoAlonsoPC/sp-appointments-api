@@ -33,4 +33,10 @@ public class AffiliateController {
         affiliateDTO = affiliateService.post(affiliateDTO);
         return affiliateDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<AffiliateDTO>(affiliateDTO, HttpStatus.CREATED);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<AffiliateDTO> getByID(@PathVariable Long id) {
+        AffiliateDTO affiliateDTO = affiliateService.getByID(id);
+        return affiliateDTO == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<AffiliateDTO>(affiliateDTO, HttpStatus.OK);
+    }
 }
