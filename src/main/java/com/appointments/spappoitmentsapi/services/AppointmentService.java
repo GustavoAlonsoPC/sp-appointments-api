@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +100,17 @@ public class AppointmentService {
 
         if (!affiliateRepository.existsById(idAffiliate)) return null;
         List<Appointment> appointments = appointmentRepository.getAppointmentByAffiliateId(idAffiliate);
+        List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
+        for (Appointment app : appointments) {
+            AppointmentDTO appointmentDTO = modelMapper.map(app, AppointmentDTO.class);
+            appointmentDTOList.add(appointmentDTO);
+        }
+        return appointmentDTOList;
+    }
+
+    public List<AppointmentDTO> getByDate(LocalDate localDate) {
+        localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyy"));
+        List<Appointment> appointments = appointmentRepository.getAppointmentByDateAppointment(localDate);
         List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
         for (Appointment app : appointments) {
             AppointmentDTO appointmentDTO = modelMapper.map(app, AppointmentDTO.class);
