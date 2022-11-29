@@ -35,7 +35,7 @@ public class HelloController {
 
     @GetMapping ("/prueba/tests")
     public List<Test> pruebaGet() {
-        return testService.getAllTests();
+        return testRepository.findAll();
     }
 
     @GetMapping ("/prueba/affiliates")
