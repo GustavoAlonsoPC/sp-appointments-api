@@ -110,7 +110,7 @@ public class AppointmentService {
 
     public List<AppointmentDTO> getByDate(LocalDate localDate) {
         localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyy"));
-        List<Appointment> appointments = appointmentRepository.getAppointmentByDateAppointment(localDate);
+        List<Appointment> appointments = appointmentRepository.getAppointmentByDate(localDate);
         List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
         for (Appointment app : appointments) {
             AppointmentDTO appointmentDTO = modelMapper.map(app, AppointmentDTO.class);
