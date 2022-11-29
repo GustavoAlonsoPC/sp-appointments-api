@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -52,10 +53,17 @@ public class AppointmentController {
         return appointmentService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
-    @GetMapping(params = "idAffiliate")
+    @GetMapping(path = "/aff",params = "idAffiliate")
     public ResponseEntity<List<AppointmentDTO>> getByAffiliateID(@RequestParam Long idAffiliate) {
         List<AppointmentDTO> appointmentDTOList = appointmentService.getByAffiliateID(idAffiliate);
         if (appointmentDTOList == null) return ResponseEntity.notFound().build();
+        if (appointmentDTOList.isEmpty()) return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(appointmentDTOList, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/date", params = "dateAppointment")
+    public ResponseEntity<List<AppointmentDTO>> getByDate(@RequestParam LocalDate dateAppointment) {
+        List<AppointmentDTO> appointmentDTOList = appointmentService.getByDate(dateAppointment);
         if (appointmentDTOList.isEmpty()) return ResponseEntity.noContent().build();
         return new ResponseEntity<>(appointmentDTOList, HttpStatus.OK);
     }
