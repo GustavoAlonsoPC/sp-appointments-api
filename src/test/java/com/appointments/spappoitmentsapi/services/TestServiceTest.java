@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -24,49 +25,82 @@ class TestServiceTest {
     @Mock
     private TestRepository testRepositoryMock;
 
-    @Mock
-    private ModelMapper modelMapperMock;
-
     @InjectMocks
     private TestService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new TestService(testRepositoryMock, modelMapperMock);
+        //    @Mock
+        ModelMapper modelMapper = new ModelMapper();
+        underTest = new TestService(testRepositoryMock, modelMapper);
     }
 
     @Test
     void getAll() {
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(null, "NameTest", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest", null);
         com.appointments.spappoitmentsapi.entities.Test test2
-                = new com.appointments.spappoitmentsapi.entities.Test(null, "NameTest", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(2L, "NameTest2", "DescTest2", null);
         com.appointments.spappoitmentsapi.entities.Test test3
-                = new com.appointments.spappoitmentsapi.entities.Test(null, "NameTest", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(3l, "NameTest3", "DescTest3", null);
 
-        List<com.appointments.spappoitmentsapi.entities.Test> testList = new ArrayList<>();
-        testList.add(test1);
-        testList.add(test2);
-        testList.add(test3);
+        List<com.appointments.spappoitmentsapi.entities.Test> testListMocked = new ArrayList<>();
+        testListMocked.add(test1);
+        testListMocked.add(test2);
+        testListMocked.add(test3);
+
+        when(testRepositoryMock.findAll()).thenReturn(testListMocked);
+
+        List<TestDTO> result = underTest.getAll();
+        assertThat(result).isNotNull();
+        assertThat(result.size()).isEqualTo(3);
+        assertThat(result.get(1).getName()).isEqualTo("NameTest2");
     }
 
     @Test
-    void post() {
+    void validPost() {
         TestDTO testDTO = new TestDTO();
         testDTO.setName("Hello");
         testDTO.setDescription("World");
 
-        when(testRepositoryMock.save(any(com.appointments.spappoitmentsapi.entities.Test.class))).thenReturn(new com.appointments.spappoitmentsapi.entities.Test());
-        when(modelMapperMock.map(any(TestDTO.class),
-                eq(com.appointments.spappoitmentsapi.entities.Test.class)))
-                .thenReturn(new com.appointments.spappoitmentsapi.entities.Test(null, "Hello", "World", null));
-
-        when(modelMapperMock.map(any(com.appointments.spappoitmentsapi.entities.Test.class),
-                eq(TestDTO.class)))
-                .thenReturn(testDTO);
+        when(testRepositoryMock.save(any(com.appointments.spappoitmentsapi.entities.Test.class)))
+                .thenReturn(new com.appointments.spappoitmentsapi.entities.Test(1L, "Hello", "World", null));
 
         TestDTO createdDTO = underTest.post(testDTO);
         assertEquals(testDTO.getName(), createdDTO.getName());
+    }
+
+    @Test
+    void postPassingId() {
+        TestDTO testDTO = new TestDTO();
+        testDTO.setId(1L);
+        testDTO.setName("Hello");
+        testDTO.setDescription("World");
+
+        TestDTO createdDTO = underTest.post(testDTO);
+        assertEquals(createdDTO, null);
+    }
+
+    @Test
+    void postPassingNullNameOrNullDescription() {
+        TestDTO testDTO = new TestDTO();
+        testDTO.setName(null);
+        testDTO.setDescription("World");
+
+        TestDTO createdDTO = underTest.post(testDTO);
+        assertEquals(createdDTO, null);
+
+        testDTO.setName("Hello");
+        testDTO.setDescription(null);
+
+        createdDTO = underTest.post(testDTO);
+        assertEquals(createdDTO, null);
+
+        testDTO.setName(null);
+        testDTO.setDescription(null);
+
+        createdDTO = underTest.post(testDTO);
+        assertEquals(createdDTO, null);
     }
 
     @Test
