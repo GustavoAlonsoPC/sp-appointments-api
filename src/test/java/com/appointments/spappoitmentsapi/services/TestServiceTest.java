@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -104,7 +105,18 @@ class TestServiceTest {
     }
 
     @Test
-    void getByID() {
+    void getByExistingID() {
+        com.appointments.spappoitmentsapi.entities.Test testMocked =
+                new com.appointments.spappoitmentsapi.entities.Test(1L, "testName", "testDesc", null);
+        when(testRepositoryMock.existsById(1L)).thenReturn(true);
+        when(testRepositoryMock.findById(1L)).thenReturn(Optional.of(testMocked));
+
+        TestDTO expected = new TestDTO();
+        expected.setId(1L);
+        expected.setName("testName");
+        expected.setDescription("testDesc");
+
+        assertThat(underTest.getByID(1L)).isEqualTo(expected);
     }
 
     @Test
