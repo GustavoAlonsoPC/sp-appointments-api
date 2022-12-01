@@ -142,6 +142,8 @@ class TestServiceTest {
         TestDTO result = underTest.put(testDTOUpdater);
 
         assertThat(result.getDescription()).isEqualTo(testDTOUpdater.getDescription());
+        assertThat(result.getName()).isEqualTo(existingTestMocked.getName());
+        assertThat(result.getId()).isEqualTo(existingTestMocked.getId());
     }
 
     @Test
