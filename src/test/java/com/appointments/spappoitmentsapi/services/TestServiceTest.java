@@ -18,6 +18,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -120,10 +121,68 @@ class TestServiceTest {
     }
 
     @Test
-    void put() {
+    void getByNonExistingID() {
+        when(testRepositoryMock.existsById(999L)).thenReturn(false);
+        assertThat(underTest.getByID(999L)).isNull();
     }
 
     @Test
-    void delete() {
+    void putWhenThereIsACorrectInput() {
+        com.appointments.spappoitmentsapi.entities.Test existingTestMocked =
+                new com.appointments.spappoitmentsapi.entities.Test(1L, "testName", "testDesc", null);
+
+        TestDTO testDTOUpdater = new TestDTO();
+        testDTOUpdater.setId(1L);
+        testDTOUpdater.setDescription("Description Updated");
+
+        when(testRepositoryMock.existsById(1L)).thenReturn(true);
+        when(testRepositoryMock.findById(testDTOUpdater.getId())).thenReturn(Optional.of(existingTestMocked));
+        when(testRepositoryMock.save(any(com.appointments.spappoitmentsapi.entities.Test.class))).thenReturn(existingTestMocked);
+
+        TestDTO result = underTest.put(testDTOUpdater);
+
+        assertThat(result.getDescription()).isEqualTo(testDTOUpdater.getDescription());
+    }
+
+    @Test
+    void putWhenNoIdProvided() {
+        TestDTO testDTOUpdater = new TestDTO();
+        testDTOUpdater.setId(null);
+        testDTOUpdater.setDescription("Description Updated");
+
+        TestDTO result = underTest.put(testDTOUpdater);
+
+        assertThat(result).isNull();
+    }
+
+    @Test
+    void putWhenNoExistingTestEntity() {
+        TestDTO testDTOUpdater = new TestDTO();
+        testDTOUpdater.setId(999L);
+        testDTOUpdater.setDescription("Description Updated");
+
+        when(testRepositoryMock.existsById(testDTOUpdater.getId())).thenReturn(false);
+        TestDTO result = underTest.put(testDTOUpdater);
+
+        assertThat(result).isNull();
+    }
+
+    @Test
+    void deleteWhenTestEntityExists() {
+        Long idOfExistingTestEntity = 1L;
+        when(testRepositoryMock.existsById(idOfExistingTestEntity)).thenReturn(true);
+        doNothing().when(testRepositoryMock).deleteById(idOfExistingTestEntity);
+        Boolean result = underTest.delete(idOfExistingTestEntity);
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void deleteWhenTestEntityDoNotExists() {
+        Long idOfExistingTestEntity = 999L;
+        when(testRepositoryMock.existsById(idOfExistingTestEntity)).thenReturn(false);
+        Boolean result = underTest.delete(idOfExistingTestEntity);
+
+        assertThat(result).isFalse();
     }
 }
