@@ -180,7 +180,7 @@ class TestServiceTest {
     }
 
     @Test
-    void deleteWhenTestEntityDoNotExists() {
+    void deleteWhenTestEntityDoesNotExists() {
         Long idOfExistingTestEntity = 999L;
         when(testRepositoryMock.existsById(idOfExistingTestEntity)).thenReturn(false);
         Boolean result = underTest.delete(idOfExistingTestEntity);
