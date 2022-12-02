@@ -185,6 +185,12 @@ class TestControllerTest {
     }
 
     @Test
-    void delete() {
+    void deleteWhenExistingId() {
+
+        when(testServiceMock.delete(1L)).thenReturn(true); //1 being an existing id
+        ResponseEntity response = underTest.delete(1L);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        assertThat(response.getBody()).isNull();
     }
 }
