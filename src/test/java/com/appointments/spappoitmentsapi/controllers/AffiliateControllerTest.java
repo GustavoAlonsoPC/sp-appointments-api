@@ -93,6 +93,22 @@ class AffiliateControllerTest {
     }
 
     @Test
+    void postWhenNoValidEntry() {
+        AffiliateDTO affToBeCreated = new AffiliateDTO();
+        affToBeCreated.setId(1L);
+        affToBeCreated.setName("affName");
+        affToBeCreated.setMail("affMail");
+        affToBeCreated.setAge(23);
+
+        when(affiliateServiceMock.post(affToBeCreated)).thenReturn(null);
+        ResponseEntity<AffiliateDTO> response = underTest.post(affToBeCreated);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNull();
+    }
+
+    @Test
     void getByID() {
     }
 
