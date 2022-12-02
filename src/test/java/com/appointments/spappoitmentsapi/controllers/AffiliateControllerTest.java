@@ -57,7 +57,18 @@ class AffiliateControllerTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo(affiliateDTOListMocked);
+    }
 
+    @Test
+    void getEmptyList() {
+        List<AffiliateDTO> affiliateDTOListMocked = new ArrayList<>();
+
+        when(affiliateServiceMock.getAll()).thenReturn(affiliateDTOListMocked);
+        ResponseEntity<List<AffiliateDTO>> response = underTest.getList();
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        assertThat(response.getBody()).isNull();
     }
 
     @Test
