@@ -193,4 +193,14 @@ class TestControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         assertThat(response.getBody()).isNull();
     }
+
+    @Test
+    void deleteWhenNoExistingId() {
+
+        when(testServiceMock.delete(999L)).thenReturn(false); //999 being an unexisting id
+        ResponseEntity response = underTest.delete(999L);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(response.getBody()).isNull();
+    }
 }
