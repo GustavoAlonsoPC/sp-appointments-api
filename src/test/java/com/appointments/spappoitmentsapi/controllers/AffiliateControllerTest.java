@@ -133,6 +133,17 @@ class AffiliateControllerTest {
     }
 
     @Test
+    void getNonExtistingTestByID() {
+
+        when(affiliateServiceMock.getByID(999L)).thenReturn(null);
+        ResponseEntity<AffiliateDTO> response = underTest.getByID(999L);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(response.getBody()).isNull();
+    }
+
+    @Test
     void put() {
     }
 
