@@ -193,4 +193,19 @@ class AppointmentControllerTest {
         assertThat(response.getBody().isEmpty()).isFalse();
         assertThat(response.getBody()).isEqualTo(appointmentDTOListMocked);
     }
+
+    @Test
+    void getByDateWhenEmptyList() {
+        List<AppointmentDTO> appointmentDTOListMocked = new ArrayList<>();
+
+        LocalDate someValidDate = LocalDate.now();
+
+        when(appointmentServiceMock.getByDate(someValidDate)).thenReturn(appointmentDTOListMocked);
+        ResponseEntity<List<AppointmentDTO>> response = underTest.getByDate(someValidDate);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        assertThat(response.getBody()).isNull();
+    }
+
 }
