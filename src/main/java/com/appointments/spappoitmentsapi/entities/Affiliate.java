@@ -21,8 +21,4 @@ public class Affiliate {
     private Integer age;
     private String mail;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "id_affiliate")
-    @JsonIgnore
-    private List<Appointment> appointments;
 }

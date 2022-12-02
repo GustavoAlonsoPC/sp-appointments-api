@@ -19,9 +19,4 @@ public class Test {
     private Long id;
     private String name;
     private String description;
-
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "id_test")
-    @JsonIgnore
-    private List<Appointment> appointments;
 }
