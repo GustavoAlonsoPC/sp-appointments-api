@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AffiliateController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.appointments.spappoitmentsapi.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: AffiliateController (com.appointments.spappoitmentsapi.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AffiliateController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.appointments.spappoitmentsapi.controllers;
+&nbsp;
+&nbsp;import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
+&nbsp;import com.appointments.spappoitmentsapi.services.AffiliateService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/controller/affiliates&quot;)
+&nbsp;public class AffiliateController {
+&nbsp;
+&nbsp;    private final AffiliateService affiliateService;
+&nbsp;
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public AffiliateController(AffiliateService affiliateService) {</b>
+<b class="fc">&nbsp;        this.affiliateService = affiliateService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping
+&nbsp;    public ResponseEntity&lt;List&lt;AffiliateDTO&gt;&gt; getList() {
+<b class="fc">&nbsp;        List&lt;AffiliateDTO&gt; affiliateDTOList = affiliateService.getAll();</b>
+<b class="fc">&nbsp;        if (affiliateDTOList.isEmpty()) return ResponseEntity.noContent().build();</b>
+<b class="fc">&nbsp;        return new ResponseEntity&lt;List&lt;AffiliateDTO&gt;&gt;(affiliateDTOList, HttpStatus.OK);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping
+&nbsp;    public ResponseEntity&lt;AffiliateDTO&gt; post(@RequestBody AffiliateDTO affiliateDTO) {
+<b class="fc">&nbsp;        if (affiliateDTO == null) return new ResponseEntity&lt;&gt;(HttpStatus.BAD_REQUEST);</b>
+<b class="fc">&nbsp;        affiliateDTO = affiliateService.post(affiliateDTO);</b>
+<b class="fc">&nbsp;        return affiliateDTO == null ? new ResponseEntity&lt;&gt;(HttpStatus.BAD_REQUEST) : new ResponseEntity&lt;AffiliateDTO&gt;(affiliateDTO, HttpStatus.CREATED);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;{id}&quot;)
+&nbsp;    public ResponseEntity&lt;AffiliateDTO&gt; getByID(@PathVariable Long id) {
+<b class="fc">&nbsp;        AffiliateDTO affiliateDTO = affiliateService.getByID(id);</b>
+<b class="fc">&nbsp;        return affiliateDTO == null ? new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND) : new ResponseEntity&lt;AffiliateDTO&gt;(affiliateDTO, HttpStatus.OK);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping
+&nbsp;    public ResponseEntity&lt;AffiliateDTO&gt; put(@RequestBody AffiliateDTO affiliateDTO) {
+<b class="fc">&nbsp;        if (affiliateDTO == null) return new ResponseEntity&lt;&gt;(HttpStatus.BAD_REQUEST);</b>
+<b class="fc">&nbsp;        affiliateDTO = affiliateService.put(affiliateDTO);</b>
+<b class="fc">&nbsp;        return affiliateDTO == null ? new ResponseEntity&lt;&gt;(HttpStatus.BAD_REQUEST) : new ResponseEntity&lt;AffiliateDTO&gt;(affiliateDTO, HttpStatus.CREATED);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;{id}&quot;)
+&nbsp;    public ResponseEntity delete(@PathVariable Long id) {
+<b class="fc">&nbsp;        return affiliateService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-02 11:01</div>
+</div>
+</body>
+</html>

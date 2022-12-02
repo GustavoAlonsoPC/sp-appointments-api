@@ -1,0 +1,261 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AppointmentService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.appointments.spappoitmentsapi.services</a>
+</div>
+
+<h1>Coverage Summary for Class: AppointmentService (com.appointments.spappoitmentsapi.services)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppointmentService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (59/59)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$5D8v6l2J</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$HZPZOOum</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$i9kKAZw1</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$k4aPJLgU</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$kP20ZPm8</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$NOpUsKFh</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$PVTtmx7r</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$uM3dcamQ</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentService$MockitoMock$wYUI0Rl4$auxiliary$VYXGOzX1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (59/59)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.appointments.spappoitmentsapi.services;
+&nbsp;
+&nbsp;import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
+&nbsp;import com.appointments.spappoitmentsapi.entities.Appointment;
+&nbsp;import com.appointments.spappoitmentsapi.repositories.AffiliateRepository;
+&nbsp;import com.appointments.spappoitmentsapi.repositories.AppointmentRepository;
+&nbsp;import com.appointments.spappoitmentsapi.repositories.TestRepository;
+&nbsp;import org.modelmapper.ModelMapper;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.format.DateTimeFormatter;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;public class AppointmentService {
+&nbsp;
+&nbsp;    private final AppointmentRepository appointmentRepository;
+&nbsp;    private final AffiliateRepository affiliateRepository;
+&nbsp;    private final TestRepository testRepository;
+&nbsp;    private final ModelMapper modelMapper;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    public AppointmentService(AppointmentRepository appointmentRepository,
+&nbsp;                              ModelMapper modelMapper,
+&nbsp;                              AffiliateRepository affiliateRepository,
+<b class="fc">&nbsp;                              TestRepository testRepository) {</b>
+<b class="fc">&nbsp;        this.appointmentRepository = appointmentRepository;</b>
+<b class="fc">&nbsp;        this.modelMapper = modelMapper;</b>
+<b class="fc">&nbsp;        this.affiliateRepository = affiliateRepository;</b>
+<b class="fc">&nbsp;        this.testRepository  = testRepository;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;AppointmentDTO&gt; getAll() {
+<b class="fc">&nbsp;        List&lt;Appointment&gt; appointments = appointmentRepository.findAll();</b>
+<b class="fc">&nbsp;        List&lt;AppointmentDTO&gt; appointmentDTOList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (Appointment app : appointments) {</b>
+<b class="fc">&nbsp;            AppointmentDTO appointmentDTO = modelMapper.map(app, AppointmentDTO.class);</b>
+<b class="fc">&nbsp;            appointmentDTOList.add(appointmentDTO);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return appointmentDTOList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public AppointmentDTO post(AppointmentDTO appointmentDTO) {
+<b class="fc">&nbsp;        if (appointmentDTO.getId() != null) {</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Trying to POST with an ID Field&quot;);</b>
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (appointmentDTO.getIdTest() == null || appointmentDTO.getIdAffiliate() == null) {</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Missing requerided ID data&quot;);</b>
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (!affiliateRepository.existsById(appointmentDTO.getIdAffiliate())</b>
+<b class="fc">&nbsp;                || !testRepository.existsById(appointmentDTO.getIdTest())) {</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Entities do not exist!&quot;);</b>
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (appointmentDTO.getDateAppointment() == null || appointmentDTO.getHourAppointment() == null) {</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Missing requerided TIME data&quot;);</b>
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);</b>
+<b class="fc">&nbsp;        return modelMapper.map(appointmentRepository.save(appointment), AppointmentDTO.class);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public AppointmentDTO getByID(Long id) {
+<b class="fc">&nbsp;        if (!appointmentRepository.existsById(id)) {</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Do not exist&quot;);</b>
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Appointment appointment = appointmentRepository.findById(id).get();</b>
+<b class="fc">&nbsp;        return modelMapper.map(appointment, AppointmentDTO.class);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public AppointmentDTO put(AppointmentDTO appointmentDTO) {
+<b class="fc">&nbsp;        if (appointmentDTO.getId() == null) return null;</b>
+<b class="fc">&nbsp;        if (!appointmentRepository.existsById(appointmentDTO.getId())) return null;</b>
+<b class="fc">&nbsp;        this.modelMapper.getConfiguration().setSkipNullEnabled(true);</b>
+<b class="fc">&nbsp;        Appointment appointment = appointmentRepository.findById(appointmentDTO.getId()).get();</b>
+<b class="fc">&nbsp;        modelMapper.map(appointmentDTO, appointment);</b>
+<b class="fc">&nbsp;        appointmentRepository.save(appointment);</b>
+<b class="fc">&nbsp;        return modelMapper.map(appointment, AppointmentDTO.class);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Boolean delete(Long id) {
+<b class="fc">&nbsp;        if (appointmentRepository.existsById(id)) {</b>
+<b class="fc">&nbsp;            appointmentRepository.deleteById(id);</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;AppointmentDTO&gt; getByAffiliateID(Long idAffiliate) {
+&nbsp;
+<b class="fc">&nbsp;        if (!affiliateRepository.existsById(idAffiliate)) return null;</b>
+<b class="fc">&nbsp;        List&lt;Appointment&gt; appointments = appointmentRepository.getAppointmentByAffiliateId(idAffiliate);</b>
+<b class="fc">&nbsp;        List&lt;AppointmentDTO&gt; appointmentDTOList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (Appointment app : appointments) {</b>
+<b class="fc">&nbsp;            AppointmentDTO appointmentDTO = modelMapper.map(app, AppointmentDTO.class);</b>
+<b class="fc">&nbsp;            appointmentDTOList.add(appointmentDTO);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return appointmentDTOList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;AppointmentDTO&gt; getByDate(LocalDate localDate) {
+<b class="fc">&nbsp;        localDate.format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyy&quot;));</b>
+<b class="fc">&nbsp;        List&lt;Appointment&gt; appointments = appointmentRepository.getAppointmentByDate(localDate);</b>
+<b class="fc">&nbsp;        List&lt;AppointmentDTO&gt; appointmentDTOList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (Appointment app : appointments) {</b>
+<b class="fc">&nbsp;            AppointmentDTO appointmentDTO = modelMapper.map(app, AppointmentDTO.class);</b>
+<b class="fc">&nbsp;            appointmentDTOList.add(appointmentDTO);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return appointmentDTOList;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-02 11:01</div>
+</div>
+</body>
+</html>
