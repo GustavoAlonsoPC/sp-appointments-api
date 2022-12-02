@@ -143,7 +143,22 @@ class TestControllerTest {
     }
 
     @Test
-    void put() {
+    void putWithValidEntry() {
+        TestDTO testUpdater = new TestDTO();
+        testUpdater.setId(1L); //id of existing test
+        testUpdater.setDescription("Description Updated");
+
+        TestDTO testUpdatedMock = new TestDTO();
+        testUpdatedMock.setId(testUpdater.getId());
+        testUpdatedMock.setDescription(testUpdater.getDescription());
+        testUpdatedMock.setName("SomeTestName");
+
+        when(testServiceMock.put(testUpdater)).thenReturn(testUpdatedMock);
+        ResponseEntity<TestDTO> response = underTest.put(testUpdater);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody()).isEqualTo(testUpdatedMock);
     }
 
     @Test
