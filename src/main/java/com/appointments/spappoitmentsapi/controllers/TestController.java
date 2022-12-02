@@ -29,6 +29,7 @@ public class TestController {
 
     @PostMapping
     public ResponseEntity<TestDTO> post(@RequestBody TestDTO testDTO) {
+        if (testDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         testDTO = testService.post(testDTO);
         return testDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(testDTO, HttpStatus.CREATED);
     }
