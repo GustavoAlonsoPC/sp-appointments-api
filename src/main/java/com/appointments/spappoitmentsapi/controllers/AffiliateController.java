@@ -42,6 +42,7 @@ public class AffiliateController {
 
     @PutMapping
     public ResponseEntity<AffiliateDTO> put(@RequestBody AffiliateDTO affiliateDTO) {
+        if (affiliateDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         affiliateDTO = affiliateService.put(affiliateDTO);
         return affiliateDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<AffiliateDTO>(affiliateDTO, HttpStatus.CREATED);
     }
