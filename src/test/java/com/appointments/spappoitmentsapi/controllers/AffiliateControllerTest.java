@@ -39,16 +39,6 @@ class AffiliateControllerTest {
         AffiliateDTO aff1 = new AffiliateDTO();
         AffiliateDTO aff2 = new AffiliateDTO();
 
-        aff1.setId(1L);
-        aff1.setName("AffName1");
-        aff1.setMail("affMail1");
-        aff1.setAge(23);
-
-        aff2.setId(2L);
-        aff2.setName("AffName2");
-        aff2.setMail("affMail2");
-        aff2.setAge(24);
-
         affiliateDTOListMocked.add(aff1);
         affiliateDTOListMocked.add(aff2);
 
@@ -57,6 +47,7 @@ class AffiliateControllerTest {
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().isEmpty()).isFalse();
         assertThat(response.getBody()).isEqualTo(affiliateDTOListMocked);
     }
 
@@ -75,15 +66,7 @@ class AffiliateControllerTest {
     @Test
     void postWhenValidEntry() {
         AffiliateDTO affToBeCreated = new AffiliateDTO();
-        affToBeCreated.setName("affName");
-        affToBeCreated.setMail("affMail");
-        affToBeCreated.setAge(23);
-
         AffiliateDTO affCreatedMock = new AffiliateDTO();
-        affCreatedMock.setId(1L);
-        affCreatedMock.setAge(affToBeCreated.getAge());
-        affCreatedMock.setName(affToBeCreated.getName());
-        affCreatedMock.setMail(affToBeCreated.getMail());
 
         when(affiliateServiceMock.post(affToBeCreated)).thenReturn(affCreatedMock);
         ResponseEntity<AffiliateDTO> response = underTest.post(affToBeCreated);
@@ -96,10 +79,6 @@ class AffiliateControllerTest {
     @Test
     void postWhenNoValidEntry() {
         AffiliateDTO affToBeCreated = new AffiliateDTO();
-        affToBeCreated.setId(1L);
-        affToBeCreated.setName("affName");
-        affToBeCreated.setMail("affMail");
-        affToBeCreated.setAge(23);
 
         when(affiliateServiceMock.post(affToBeCreated)).thenReturn(null);
         ResponseEntity<AffiliateDTO> response = underTest.post(affToBeCreated);
@@ -120,13 +99,9 @@ class AffiliateControllerTest {
     @Test
     void getExistingAffiliateByID() {
         AffiliateDTO affMock = new AffiliateDTO();
-        affMock.setId(1L);
-        affMock.setName("AffName");
-        affMock.setMail("AffMail");
-        affMock.setAge(23);
 
-        when(affiliateServiceMock.getByID(affMock.getId())).thenReturn(affMock);
-        ResponseEntity<AffiliateDTO> response = underTest.getByID(affMock.getId());
+        when(affiliateServiceMock.getByID(1L)).thenReturn(affMock);
+        ResponseEntity<AffiliateDTO> response = underTest.getByID(1L);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
