@@ -29,6 +29,7 @@ public class AffiliateController {
 
     @PostMapping
     public ResponseEntity<AffiliateDTO> post(@RequestBody AffiliateDTO affiliateDTO) {
+        if (affiliateDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         affiliateDTO = affiliateService.post(affiliateDTO);
         return affiliateDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<AffiliateDTO>(affiliateDTO, HttpStatus.CREATED);
     }
