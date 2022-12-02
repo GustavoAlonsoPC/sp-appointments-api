@@ -208,4 +208,22 @@ class AppointmentControllerTest {
         assertThat(response.getBody()).isNull();
     }
 
+    @Test
+    void getByAffiliateIDWhenNonEmptyList() {
+        List<AppointmentDTO> appointmentDTOListMocked = new ArrayList<>();
+        AppointmentDTO app1 = new AppointmentDTO();
+        AppointmentDTO app2 = new AppointmentDTO();
+
+        appointmentDTOListMocked.add(app1);
+        appointmentDTOListMocked.add(app2);
+
+        when(appointmentServiceMock.getByAffiliateID(1L)).thenReturn(appointmentDTOListMocked);
+        ResponseEntity<List<AppointmentDTO>> response = underTest.getByAffiliateID(1L);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().isEmpty()).isFalse();
+        assertThat(response.getBody()).isEqualTo(appointmentDTOListMocked);
+    }
+
 }
