@@ -129,13 +129,9 @@ class TestControllerTest {
 
     @Test
     void getNonExtistingTestByID() {
-        TestDTO testMock = new TestDTO();
-        testMock.setId(999L);
-        testMock.setName("testName");
-        testMock.setDescription("testDesc");
 
-        when(testServiceMock.getByID(testMock.getId())).thenReturn(null);
-        ResponseEntity<TestDTO> response = underTest.getByID(testMock.getId());
+        when(testServiceMock.getByID(999L)).thenReturn(null);
+        ResponseEntity<TestDTO> response = underTest.getByID(999L);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
