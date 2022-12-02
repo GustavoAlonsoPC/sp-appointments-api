@@ -72,7 +72,24 @@ class AffiliateControllerTest {
     }
 
     @Test
-    void post() {
+    void postWhenValidEntry() {
+        AffiliateDTO affToBeCreated = new AffiliateDTO();
+        affToBeCreated.setName("affName");
+        affToBeCreated.setMail("affMail");
+        affToBeCreated.setAge(23);
+
+        AffiliateDTO affCreatedMock = new AffiliateDTO();
+        affCreatedMock.setId(1L);
+        affCreatedMock.setAge(affToBeCreated.getAge());
+        affCreatedMock.setName(affToBeCreated.getName());
+        affCreatedMock.setMail(affToBeCreated.getMail());
+
+        when(affiliateServiceMock.post(affToBeCreated)).thenReturn(affCreatedMock);
+        ResponseEntity<AffiliateDTO> response = underTest.post(affToBeCreated);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody()).isEqualTo(affCreatedMock);
     }
 
     @Test
