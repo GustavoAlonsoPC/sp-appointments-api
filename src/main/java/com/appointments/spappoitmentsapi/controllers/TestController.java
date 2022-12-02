@@ -42,6 +42,7 @@ public class TestController {
 
     @PutMapping
     public ResponseEntity<TestDTO> put(@RequestBody TestDTO testDTO) {
+        if (testDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         testDTO = testService.put(testDTO);
         return testDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(testDTO, HttpStatus.CREATED);
     }
