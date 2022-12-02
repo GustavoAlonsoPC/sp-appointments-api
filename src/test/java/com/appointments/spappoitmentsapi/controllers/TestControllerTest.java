@@ -176,6 +176,15 @@ class TestControllerTest {
     }
 
     @Test
+    void putWithNullEntry() {
+        ResponseEntity<TestDTO> response = underTest.put(null);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNull();
+    }
+
+    @Test
     void delete() {
     }
 }
