@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,5 +172,25 @@ class AppointmentControllerTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         assertThat(response.getBody()).isNull();
+    }
+
+    @Test
+    void getByDateWhenNonEmptyList() {
+        List<AppointmentDTO> appointmentDTOListMocked = new ArrayList<>();
+        AppointmentDTO app1 = new AppointmentDTO();
+        AppointmentDTO app2 = new AppointmentDTO();
+
+        appointmentDTOListMocked.add(app1);
+        appointmentDTOListMocked.add(app2);
+
+        LocalDate someValidDate = LocalDate.now();
+
+        when(appointmentServiceMock.getByDate(someValidDate)).thenReturn(appointmentDTOListMocked);
+        ResponseEntity<List<AppointmentDTO>> response = underTest.getByDate(someValidDate);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().isEmpty()).isFalse();
+        assertThat(response.getBody()).isEqualTo(appointmentDTOListMocked);
     }
 }
