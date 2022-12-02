@@ -162,6 +162,20 @@ class TestControllerTest {
     }
 
     @Test
+    void putWithNoValidEntry() {
+        TestDTO testUpdater = new TestDTO();
+        testUpdater.setId(null); //is invalid because id must exists
+        testUpdater.setDescription("Description Updated");
+
+        when(testServiceMock.put(testUpdater)).thenReturn(null);
+        ResponseEntity<TestDTO> response = underTest.put(testUpdater);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNull();
+    }
+
+    @Test
     void delete() {
     }
 }
