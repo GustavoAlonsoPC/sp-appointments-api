@@ -109,7 +109,7 @@ class AffiliateControllerTest {
     }
 
     @Test
-    void getNonExtistingTestByID() {
+    void getNonExtistingAffiliateByID() {
 
         when(affiliateServiceMock.getByID(999L)).thenReturn(null);
         ResponseEntity<AffiliateDTO> response = underTest.getByID(999L);
