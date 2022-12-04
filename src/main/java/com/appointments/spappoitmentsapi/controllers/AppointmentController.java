@@ -1,10 +1,8 @@
 package com.appointments.spappoitmentsapi.controllers;
 
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
-import com.appointments.spappoitmentsapi.entities.Appointment;
 import com.appointments.spappoitmentsapi.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

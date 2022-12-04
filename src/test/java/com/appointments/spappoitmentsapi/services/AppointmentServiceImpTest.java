@@ -21,12 +21,11 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AppointmentServiceTest {
+class AppointmentServiceImpTest {
 
     @Mock
     private TestRepository testRepositoryMock;
@@ -38,12 +37,12 @@ class AppointmentServiceTest {
     private AppointmentRepository appointmentRepositoryMock;
 
     @InjectMocks
-    private AppointmentService underTest;
+    private AppointmentServiceImp underTest;
 
     @BeforeEach
     void setUp() {
         ModelMapper modelMapper = new ModelMapper();
-        underTest = new AppointmentService(appointmentRepositoryMock,
+        underTest = new AppointmentServiceImp(appointmentRepositoryMock,
                 modelMapper,
                 affiliateRepositoryMock,
                 testRepositoryMock);

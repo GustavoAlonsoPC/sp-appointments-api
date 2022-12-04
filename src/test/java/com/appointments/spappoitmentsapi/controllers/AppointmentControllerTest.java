@@ -1,6 +1,5 @@
 package com.appointments.spappoitmentsapi.controllers;
 
-import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
 import com.appointments.spappoitmentsapi.services.AppointmentService;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
