@@ -16,31 +16,30 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AffiliateServiceTest {
+class AffiliateServiceImpTest {
 
     @Mock
     private AffiliateRepository affiliateRepositoryMock;
 
     @InjectMocks
-    private AffiliateService underTest;
+    private AffiliateServiceImp underTest;
 
     @BeforeEach
     void setUp() {
         ModelMapper modelMapper = new ModelMapper();
-        underTest = new AffiliateService(affiliateRepositoryMock, modelMapper);
+        underTest = new AffiliateServiceImp(affiliateRepositoryMock, modelMapper);
     }
 
     @Test
     void getAll() {
-        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1", null);
-        Affiliate aff2 = new Affiliate(2L, "AffName2", 21, "mail2", null);
-        Affiliate aff3 = new Affiliate(3L, "AffName3", 22, "mail3", null);
+        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1");
+        Affiliate aff2 = new Affiliate(2L, "AffName2", 21, "mail2");
+        Affiliate aff3 = new Affiliate(3L, "AffName3", 22, "mail3");
 
         List<Affiliate> affiliateListMocked = new ArrayList<>();
         affiliateListMocked.add(aff1);
@@ -65,8 +64,7 @@ class AffiliateServiceTest {
         Affiliate affCreatedMocked = new Affiliate(1L,
                 affiliateDTO.getName(),
                 affiliateDTO.getAge(),
-                affiliateDTO.getMail(),
-                null);
+                affiliateDTO.getMail());
 
         when(affiliateRepositoryMock.save(any(Affiliate.class))).thenReturn(affCreatedMocked);
 
@@ -113,8 +111,7 @@ class AffiliateServiceTest {
         Affiliate affiliateMocked = new Affiliate(1L,
                 "AffTestName",
                 20,
-                "affTestMail",
-                null);
+                "affTestMail");
 
         when(affiliateRepositoryMock.existsById(affiliateMocked.getId())).thenReturn(true);
         when(affiliateRepositoryMock.findById(affiliateMocked.getId())).thenReturn(Optional.of(affiliateMocked));
@@ -140,8 +137,7 @@ class AffiliateServiceTest {
         Affiliate existingAffiliateMocked = new Affiliate(1L,
                 "AffTestName",
                 20,
-                "affTestMail",
-                null);
+                "affTestMail");
 
         AffiliateDTO affUpdater = new AffiliateDTO();
         affUpdater.setId(existingAffiliateMocked.getId());
