@@ -22,19 +22,19 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TestServiceTest {
+class TestServiceImpTest {
 
     @Mock
     private TestRepository testRepositoryMock;
 
     @InjectMocks
-    private TestService underTest;
+    private TestServiceImp underTest;
 
     @BeforeEach
     void setUp() {
         //    @Mock
         ModelMapper modelMapper = new ModelMapper();
-        underTest = new TestService(testRepositoryMock, modelMapper);
+        underTest = new TestServiceImp(testRepositoryMock, modelMapper);
     }
 
     @Test
