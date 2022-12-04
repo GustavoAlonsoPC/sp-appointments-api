@@ -51,9 +51,9 @@ class AppointmentServiceTest {
 
     @Test
     void getAll() {
-        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1", null);
-        Affiliate aff2 = new Affiliate(2L, "AffName2", 21, "mail2", null);
-        Affiliate aff3 = new Affiliate(3L, "AffName3", 22, "mail3", null);
+        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1");
+        Affiliate aff2 = new Affiliate(2L, "AffName2", 21, "mail2");
+        Affiliate aff3 = new Affiliate(3L, "AffName3", 22, "mail3");
 
         List<Affiliate> affiliateListMocked = new ArrayList<>();
         affiliateListMocked.add(aff1);
@@ -61,11 +61,11 @@ class AppointmentServiceTest {
         affiliateListMocked.add(aff3);
 
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest");
         com.appointments.spappoitmentsapi.entities.Test test2
-                = new com.appointments.spappoitmentsapi.entities.Test(2L, "NameTest2", "DescTest2", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(2L, "NameTest2", "DescTest2");
         com.appointments.spappoitmentsapi.entities.Test test3
-                = new com.appointments.spappoitmentsapi.entities.Test(3l, "NameTest3", "DescTest3", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(3l, "NameTest3", "DescTest3");
 
         List<com.appointments.spappoitmentsapi.entities.Test> testListMocked = new ArrayList<>();
         testListMocked.add(test1);
@@ -112,9 +112,9 @@ class AppointmentServiceTest {
         appointmentDTO.setIdAffiliate(1L);
         appointmentDTO.setIdTest(1L);
 
-        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1", null);
+        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1");
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest");
 
         when(affiliateRepositoryMock.existsById(appointmentDTO.getIdAffiliate())).thenReturn(true);
         when(testRepositoryMock.existsById(appointmentDTO.getIdTest())).thenReturn(true);
@@ -234,9 +234,9 @@ class AppointmentServiceTest {
 
     @Test
     void getByID() {
-        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1", null);
+        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1");
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest");
 
         Appointment appointmentMocked = new Appointment(1L,
                 LocalDate.of(2022, 12, 01),
@@ -265,9 +265,9 @@ class AppointmentServiceTest {
 
     @Test
     void putWhenThereIdACorrectInput() {
-        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1", null);
+        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1");
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest");
 
         Appointment existingAppointment = new Appointment(1L,
                 LocalDate.of(2022, 12, 01),
@@ -335,14 +335,14 @@ class AppointmentServiceTest {
 
     @Test
     void getByAffiliateID() {
-        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1", null);
+        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1");
 
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest");
         com.appointments.spappoitmentsapi.entities.Test test2
-                = new com.appointments.spappoitmentsapi.entities.Test(2L, "NameTest2", "DescTest2", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(2L, "NameTest2", "DescTest2");
         com.appointments.spappoitmentsapi.entities.Test test3
-                = new com.appointments.spappoitmentsapi.entities.Test(3l, "NameTest3", "DescTest3", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(3l, "NameTest3", "DescTest3");
 
         Appointment app1 = new Appointment(1L,
                 LocalDate.of(2022, 12, 1),
@@ -388,10 +388,10 @@ class AppointmentServiceTest {
 
     @Test
     void getByDate() {
-        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1", null);
+        Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1");
 
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest");
 
         Appointment app1 = new Appointment(1L,
                 LocalDate.of(2022, 12, 1),

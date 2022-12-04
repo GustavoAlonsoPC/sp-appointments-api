@@ -40,11 +40,11 @@ class TestServiceTest {
     @Test
     void getAll() {
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(1L, "NameTest1", "DescTest");
         com.appointments.spappoitmentsapi.entities.Test test2
-                = new com.appointments.spappoitmentsapi.entities.Test(2L, "NameTest2", "DescTest2", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(2L, "NameTest2", "DescTest2");
         com.appointments.spappoitmentsapi.entities.Test test3
-                = new com.appointments.spappoitmentsapi.entities.Test(3l, "NameTest3", "DescTest3", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(3l, "NameTest3", "DescTest3");
 
         List<com.appointments.spappoitmentsapi.entities.Test> testListMocked = new ArrayList<>();
         testListMocked.add(test1);
@@ -66,7 +66,7 @@ class TestServiceTest {
         testDTO.setDescription("World");
 
         when(testRepositoryMock.save(any(com.appointments.spappoitmentsapi.entities.Test.class)))
-                .thenReturn(new com.appointments.spappoitmentsapi.entities.Test(1L, "Hello", "World", null));
+                .thenReturn(new com.appointments.spappoitmentsapi.entities.Test(1L, "Hello", "World"));
 
         TestDTO createdDTO = underTest.post(testDTO);
         assertEquals(testDTO.getName(), createdDTO.getName());
@@ -108,7 +108,7 @@ class TestServiceTest {
     @Test
     void getByExistingID() {
         com.appointments.spappoitmentsapi.entities.Test testMocked =
-                new com.appointments.spappoitmentsapi.entities.Test(1L, "testName", "testDesc", null);
+                new com.appointments.spappoitmentsapi.entities.Test(1L, "testName", "testDesc");
         when(testRepositoryMock.existsById(1L)).thenReturn(true);
         when(testRepositoryMock.findById(1L)).thenReturn(Optional.of(testMocked));
 
@@ -129,7 +129,7 @@ class TestServiceTest {
     @Test
     void putWhenThereIsACorrectInput() {
         com.appointments.spappoitmentsapi.entities.Test existingTestMocked =
-                new com.appointments.spappoitmentsapi.entities.Test(1L, "testName", "testDesc", null);
+                new com.appointments.spappoitmentsapi.entities.Test(1L, "testName", "testDesc");
 
         TestDTO testDTOUpdater = new TestDTO();
         testDTOUpdater.setId(1L);

@@ -30,13 +30,13 @@ class AppointmentRepositoryTest {
 
         List<com.appointments.spappoitmentsapi.entities.Test> testList = new ArrayList<>();
         com.appointments.spappoitmentsapi.entities.Test test1
-                = new com.appointments.spappoitmentsapi.entities.Test(null, "Test1", "Desc1", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(null, "Test1", "Desc1");
         com.appointments.spappoitmentsapi.entities.Test test2
-                = new com.appointments.spappoitmentsapi.entities.Test(null, "Test2", "Desc2", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(null, "Test2", "Desc2");
         com.appointments.spappoitmentsapi.entities.Test test3
-                = new com.appointments.spappoitmentsapi.entities.Test(null, "Test3", "Desc3", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(null, "Test3", "Desc3");
         com.appointments.spappoitmentsapi.entities.Test test4
-                = new com.appointments.spappoitmentsapi.entities.Test(null, "Test4", "Desc4", null);
+                = new com.appointments.spappoitmentsapi.entities.Test(null, "Test4", "Desc4");
 
         testList.add(test1);
         testList.add(test2);
@@ -44,10 +44,10 @@ class AppointmentRepositoryTest {
         testList.add(test4);
 
         List<Affiliate> affiliateList = new ArrayList<>();
-        Affiliate affiliate1 = new Affiliate(null, "nameaff1", 23, "mail1", null);
-        Affiliate affiliate2 = new Affiliate(null, "nameaff2", 23, "mail2", null);
-        Affiliate affiliate3 = new Affiliate(null, "nameaff3", 23, "mail3", null);
-        Affiliate affiliate4 = new Affiliate(null, "nameaff4", 23, "mail4", null);
+        Affiliate affiliate1 = new Affiliate(null, "nameaff1", 23, "mail1");
+        Affiliate affiliate2 = new Affiliate(null, "nameaff2", 23, "mail2");
+        Affiliate affiliate3 = new Affiliate(null, "nameaff3", 23, "mail3");
+        Affiliate affiliate4 = new Affiliate(null, "nameaff4", 23, "mail4");
 
         affiliateList.add(affiliate1);
         affiliateList.add(affiliate2);
