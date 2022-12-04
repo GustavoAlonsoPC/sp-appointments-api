@@ -1,7 +1,9 @@
 package com.appointments.spappoitmentsapi.services;
 
 import com.appointments.spappoitmentsapi.dto.AppointmentDTO;
+import com.appointments.spappoitmentsapi.entities.Affiliate;
 import com.appointments.spappoitmentsapi.entities.Appointment;
+import com.appointments.spappoitmentsapi.entities.Test;
 import com.appointments.spappoitmentsapi.repositories.AffiliateRepository;
 import com.appointments.spappoitmentsapi.repositories.AppointmentRepository;
 import com.appointments.spappoitmentsapi.repositories.TestRepository;
@@ -83,6 +85,21 @@ public class AppointmentServiceImp implements AppointmentService{
         if (!appointmentRepository.existsById(appointmentDTO.getId())) return null;
         this.modelMapper.getConfiguration().setSkipNullEnabled(true);
         Appointment appointment = appointmentRepository.findById(appointmentDTO.getId()).get();
+        if (appointmentDTO.getIdAffiliate() != null) {
+            if (!affiliateRepository.existsById(appointmentDTO.getIdAffiliate())) return null;
+            Affiliate affiliateUpdated = affiliateRepository.findById(appointmentDTO.getIdAffiliate()).get();
+            appointment.setAffiliate(affiliateUpdated);
+            appointmentDTO.setIdAffiliate(null);
+            appointment = appointmentRepository.save(appointment);
+        }
+        if (appointmentDTO.getIdTest() != null) {
+            if (!testRepository.existsById(appointmentDTO.getIdTest())) return null;
+            Test testUpdated = testRepository.findById(appointmentDTO.getIdTest()).get();
+            appointment.setTest(testUpdated);
+            appointmentDTO.setIdTest(null);
+            appointment = appointmentRepository.save(appointment);
+        }
+
         modelMapper.map(appointmentDTO, appointment);
         appointmentRepository.save(appointment);
         return modelMapper.map(appointment, AppointmentDTO.class);
