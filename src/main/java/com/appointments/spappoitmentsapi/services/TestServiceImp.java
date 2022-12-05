@@ -5,6 +5,7 @@ import com.appointments.spappoitmentsapi.entities.Test;
 import com.appointments.spappoitmentsapi.repositories.TestRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -67,7 +68,11 @@ public class TestServiceImp implements TestService {
 
     public Boolean delete(Long id) {
         if (testRepository.existsById(id)) {
-            testRepository.deleteById(id);
+            try {
+                testRepository.deleteById(id);
+            } catch (DataIntegrityViolationException e) {
+                throw e;
+            }
             return true;
         }
         return false;
