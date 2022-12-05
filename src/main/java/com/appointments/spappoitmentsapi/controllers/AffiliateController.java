@@ -3,11 +3,14 @@ package com.appointments.spappoitmentsapi.controllers;
 import com.appointments.spappoitmentsapi.dto.AffiliateDTO;
 import com.appointments.spappoitmentsapi.services.AffiliateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/controller/affiliates")
@@ -49,6 +52,15 @@ public class AffiliateController {
 
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable Long id) {
-        return affiliateService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        try {
+            return affiliateService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        } catch (DataIntegrityViolationException e) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("message", "trying to delete referenced affiliate");
+            map.put("error", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            map.put("try", "delete the children first");
+
+            return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
