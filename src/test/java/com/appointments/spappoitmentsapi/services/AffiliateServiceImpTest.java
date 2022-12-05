@@ -10,15 +10,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AffiliateServiceImpTest {
@@ -194,5 +195,12 @@ class AffiliateServiceImpTest {
         Boolean result = underTest.delete(idOfExistingAffiliate);
 
         assertThat(result).isFalse();
+    }
+
+    @Test
+    void deleteWhenAffiliateEntityIsBeingReferencedByOthers() {
+        when(affiliateRepositoryMock.existsById(1L)).thenReturn(true);
+        doThrow(DataIntegrityViolationException.class).when(affiliateRepositoryMock).deleteById(1L);
+        assertThrows(DataIntegrityViolationException.class, () -> underTest.delete(1L));
     }
 }
