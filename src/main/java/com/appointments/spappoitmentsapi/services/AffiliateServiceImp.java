@@ -5,6 +5,7 @@ import com.appointments.spappoitmentsapi.entities.Affiliate;
 import com.appointments.spappoitmentsapi.repositories.AffiliateRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -67,7 +68,11 @@ public class AffiliateServiceImp implements AffiliateService{
 
     public Boolean delete(Long id) {
         if (affiliateRepository.existsById(id)) {
-            affiliateRepository.deleteById(id);
+            try {
+                affiliateRepository.deleteById(id);
+            } catch (DataIntegrityViolationException e) {
+                throw e;
+            }
             return true;
         }
         return false;
