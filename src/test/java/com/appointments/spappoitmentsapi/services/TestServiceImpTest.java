@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TestServiceImpTest {
@@ -186,5 +186,12 @@ class TestServiceImpTest {
         Boolean result = underTest.delete(idOfExistingTestEntity);
 
         assertThat(result).isFalse();
+    }
+
+    @Test
+    void deleteWhenTestEntityIsBeingReferencedByOthers() {
+        when(testRepositoryMock.existsById(1L)).thenReturn(true);
+        doThrow(DataIntegrityViolationException.class).when(testRepositoryMock).deleteById(1L);
+        assertThrows(DataIntegrityViolationException.class, () -> underTest.delete(1L));
     }
 }
