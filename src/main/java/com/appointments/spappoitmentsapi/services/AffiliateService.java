@@ -9,6 +9,6 @@ public interface AffiliateService {
     List<AffiliateDTO> getAll();
     AffiliateDTO post(AffiliateDTO affiliateDTO);
     AffiliateDTO getByID(Long id);
-    AffiliateDTO put(AffiliateDTO affiliateDTO);
+    AffiliateDTO put(Long affiliateId, AffiliateDTO affiliateDTO);
     Boolean delete(Long id);
 }

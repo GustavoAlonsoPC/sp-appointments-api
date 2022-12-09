@@ -56,11 +56,10 @@ public class AffiliateServiceImp implements AffiliateService{
         return modelMapper.map(affiliate, AffiliateDTO.class);
     }
 
-    public AffiliateDTO put(AffiliateDTO affiliateDTO) {
-        if (affiliateDTO.getId() == null) return null;
-        if (!affiliateRepository.existsById(affiliateDTO.getId())) return null;
+    public AffiliateDTO put(Long affiliateId, AffiliateDTO affiliateDTO) {
+        if (!affiliateRepository.existsById(affiliateId)) return null;
         this.modelMapper.getConfiguration().setSkipNullEnabled(true);
-        Affiliate affiliate = affiliateRepository.findById(affiliateDTO.getId()).get();
+        Affiliate affiliate = affiliateRepository.findById(affiliateId).get();
         modelMapper.map(affiliateDTO, affiliate);
         affiliateRepository.save(affiliate);
         return modelMapper.map(affiliate, AffiliateDTO.class);

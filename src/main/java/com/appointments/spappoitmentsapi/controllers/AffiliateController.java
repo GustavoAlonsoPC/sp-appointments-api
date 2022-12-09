@@ -61,9 +61,10 @@ public class AffiliateController {
     @ApiOperation(value = "Updates an existing affiliate", notes = "Needs an ID parameter in query")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Successfully updated"),
             @ApiResponse(code = 400, message = "Invalid input")})
-    public ResponseEntity<AffiliateDTO> put(@RequestBody AffiliateDTO affiliateDTO) {
-        if (affiliateDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        affiliateDTO = affiliateService.put(affiliateDTO);
+    public ResponseEntity<AffiliateDTO> put(@RequestParam Long affiliateId, @RequestBody AffiliateDTO affiliateDTO) {
+        if (affiliateId == null || affiliateDTO == null || affiliateDTO.getId() != null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        affiliateDTO = affiliateService.put(affiliateId, affiliateDTO);
         return affiliateDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<AffiliateDTO>(affiliateDTO, HttpStatus.CREATED);
     }
 
