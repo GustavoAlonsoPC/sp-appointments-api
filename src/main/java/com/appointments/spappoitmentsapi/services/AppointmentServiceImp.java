@@ -135,4 +135,14 @@ public class AppointmentServiceImp implements AppointmentService{
         }
         return appointmentDTOList;
     }
+
+    public Boolean deleteByTest(Long testId) {
+        if (!testRepository.existsById(testId)) return false;
+        appointmentRepository.deleteAppointmentByTestId(testId);
+        return true;
+    }
+
+    public Boolean deleteByAffiliate(Long affiliateId) {
+        return null;
+    }
 }
