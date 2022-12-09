@@ -124,8 +124,8 @@ class TestControllerTest {
         TestDTO testUpdater = new TestDTO();
         TestDTO testUpdatedMock = new TestDTO();
 
-        when(testServiceMock.put(testUpdater)).thenReturn(testUpdatedMock);
-        ResponseEntity<TestDTO> response = underTest.put(testUpdater);
+        when(testServiceMock.put(1L, testUpdater)).thenReturn(testUpdatedMock);
+        ResponseEntity<TestDTO> response = underTest.put(1L, testUpdater);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -136,8 +136,7 @@ class TestControllerTest {
     void putWithNoValidEntry() {
         TestDTO testUpdater = new TestDTO();
 
-        when(testServiceMock.put(testUpdater)).thenReturn(null);
-        ResponseEntity<TestDTO> response = underTest.put(testUpdater);
+        ResponseEntity<TestDTO> response = underTest.put(null, testUpdater);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
@@ -146,7 +145,7 @@ class TestControllerTest {
 
     @Test
     void putWithNullEntry() {
-        ResponseEntity<TestDTO> response = underTest.put(null);
+        ResponseEntity<TestDTO> response = underTest.put(null,null);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);

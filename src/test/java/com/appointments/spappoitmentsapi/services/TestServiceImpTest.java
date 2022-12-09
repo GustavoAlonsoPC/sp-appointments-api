@@ -132,14 +132,13 @@ class TestServiceImpTest {
                 new com.appointments.spappoitmentsapi.entities.Test(1L, "testName", "testDesc");
 
         TestDTO testDTOUpdater = new TestDTO();
-        testDTOUpdater.setId(1L);
         testDTOUpdater.setDescription("Description Updated");
 
         when(testRepositoryMock.existsById(1L)).thenReturn(true);
-        when(testRepositoryMock.findById(testDTOUpdater.getId())).thenReturn(Optional.of(existingTestMocked));
+        when(testRepositoryMock.findById(1L)).thenReturn(Optional.of(existingTestMocked));
         when(testRepositoryMock.save(any(com.appointments.spappoitmentsapi.entities.Test.class))).thenReturn(existingTestMocked);
 
-        TestDTO result = underTest.put(testDTOUpdater);
+        TestDTO result = underTest.put(1L,testDTOUpdater);
 
         assertThat(result.getDescription()).isEqualTo(testDTOUpdater.getDescription());
         assertThat(result.getName()).isEqualTo(existingTestMocked.getName());
@@ -152,7 +151,7 @@ class TestServiceImpTest {
         testDTOUpdater.setId(null);
         testDTOUpdater.setDescription("Description Updated");
 
-        TestDTO result = underTest.put(testDTOUpdater);
+        TestDTO result = underTest.put(null, testDTOUpdater);
 
         assertThat(result).isNull();
     }
@@ -160,11 +159,10 @@ class TestServiceImpTest {
     @Test
     void putWhenNoExistingTestEntity() {
         TestDTO testDTOUpdater = new TestDTO();
-        testDTOUpdater.setId(999L);
         testDTOUpdater.setDescription("Description Updated");
 
-        when(testRepositoryMock.existsById(testDTOUpdater.getId())).thenReturn(false);
-        TestDTO result = underTest.put(testDTOUpdater);
+        when(testRepositoryMock.existsById(999L)).thenReturn(false);
+        TestDTO result = underTest.put(999L, testDTOUpdater);
 
         assertThat(result).isNull();
     }
