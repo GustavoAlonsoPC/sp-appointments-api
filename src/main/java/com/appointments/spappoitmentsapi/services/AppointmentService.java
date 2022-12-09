@@ -14,4 +14,6 @@ public interface AppointmentService {
     Boolean delete(Long id);
     List<AppointmentDTO> getByAffiliateID(Long idAffiliate);
     List<AppointmentDTO> getByDate(LocalDate localDate);
+    Boolean deleteByTest(Long testId);
+    Boolean deleteByAffiliate(Long affiliateId);
 }
