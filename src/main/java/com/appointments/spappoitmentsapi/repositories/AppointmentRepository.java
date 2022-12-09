@@ -4,6 +4,7 @@ import com.appointments.spappoitmentsapi.entities.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,10 +21,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> getAppointmentsByTestId(Long idTest);
 
     @Modifying
+    @Transactional
     @Query("DELETE from Appointment A where A.affiliate.id = ?1")
     void deleteAppointmentByAffiliateId(Long affiliateId);
 
     @Modifying
+    @Transactional
     @Query("DELETE from Appointment A where A.test.id = ?1")
     void deleteAppointmentByTestId(Long testId);
 }
