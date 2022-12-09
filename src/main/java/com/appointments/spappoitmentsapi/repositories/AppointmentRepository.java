@@ -22,4 +22,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Modifying
     @Query("DELETE from Appointment A where A.affiliate.id = ?1")
     void deleteAppointmentByAffiliateId(Long affiliateId);
+
+    @Modifying
+    @Query("DELETE from Appointment A where A.test.id = ?1")
+    void deleteAppointmentByTestId(Long testId);
 }
