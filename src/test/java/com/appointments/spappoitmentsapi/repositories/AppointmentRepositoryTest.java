@@ -96,7 +96,6 @@ class AppointmentRepositoryTest {
     @Test
     void deleteByAffiliate() {
         underTest.deleteAppointmentByAffiliateId(13L);
-        List<Appointment> allOfThem = underTest.findAll();
         assertThat(underTest.count()).isEqualTo(3);
     }
 }
