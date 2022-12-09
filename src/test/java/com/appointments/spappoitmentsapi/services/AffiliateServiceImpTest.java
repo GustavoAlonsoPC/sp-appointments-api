@@ -141,14 +141,13 @@ class AffiliateServiceImpTest {
                 "affTestMail");
 
         AffiliateDTO affUpdater = new AffiliateDTO();
-        affUpdater.setId(existingAffiliateMocked.getId());
         affUpdater.setMail("AffMailTestUpdated");
 
-        when(affiliateRepositoryMock.existsById(affUpdater.getId())).thenReturn(true);
-        when(affiliateRepositoryMock.findById(affUpdater.getId())).thenReturn(Optional.of(existingAffiliateMocked));
+        when(affiliateRepositoryMock.existsById(1L)).thenReturn(true);
+        when(affiliateRepositoryMock.findById(1L)).thenReturn(Optional.of(existingAffiliateMocked));
         when(affiliateRepositoryMock.save(any(Affiliate.class))).thenReturn(existingAffiliateMocked);
 
-        AffiliateDTO result = underTest.put(affUpdater);
+        AffiliateDTO result = underTest.put(1L, affUpdater);
 
         assertThat(result.getMail()).isEqualTo(affUpdater.getMail());
         assertThat(result.getName()).isEqualTo(existingAffiliateMocked.getName());
@@ -161,7 +160,7 @@ class AffiliateServiceImpTest {
         affUpdater.setId(null);
         affUpdater.setMail("someMail");
 
-        AffiliateDTO result = underTest.put(affUpdater);
+        AffiliateDTO result = underTest.put(null, affUpdater);
 
         assertThat(result).isNull();
     }
@@ -169,11 +168,10 @@ class AffiliateServiceImpTest {
     @Test
     void putWhenNoExistingAffiliate() {
         AffiliateDTO affUpdater = new AffiliateDTO();
-        affUpdater.setId(999L);
         affUpdater.setMail("someMail");
 
-        when(affiliateRepositoryMock.existsById(affUpdater.getId())).thenReturn(false);
-        AffiliateDTO result = underTest.put(affUpdater);
+        when(affiliateRepositoryMock.existsById(999L)).thenReturn(false);
+        AffiliateDTO result = underTest.put(999L, affUpdater);
 
         assertThat(result).isNull();
     }

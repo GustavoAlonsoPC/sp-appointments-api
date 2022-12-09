@@ -124,8 +124,8 @@ class AffiliateControllerTest {
         AffiliateDTO affUpdater = new AffiliateDTO();
         AffiliateDTO affUpdatedMock = new AffiliateDTO();
 
-        when(affiliateServiceMock.put(affUpdater)).thenReturn(affUpdatedMock);
-        ResponseEntity<AffiliateDTO> response = underTest.put(affUpdater);
+        when(affiliateServiceMock.put(1L, affUpdater)).thenReturn(affUpdatedMock);
+        ResponseEntity<AffiliateDTO> response = underTest.put(1L, affUpdater);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -136,8 +136,7 @@ class AffiliateControllerTest {
     void putWhenNoValidEntry() {
         AffiliateDTO affUpdater = new AffiliateDTO();
 
-        when(affiliateServiceMock.put(affUpdater)).thenReturn(null);
-        ResponseEntity<AffiliateDTO> response = underTest.put(affUpdater);
+        ResponseEntity<AffiliateDTO> response = underTest.put(1L, null);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
@@ -146,7 +145,7 @@ class AffiliateControllerTest {
 
     @Test
     void putWithNullEntry() {
-        ResponseEntity<AffiliateDTO> response = underTest.put(null);
+        ResponseEntity<AffiliateDTO> response = underTest.put(null, null);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
