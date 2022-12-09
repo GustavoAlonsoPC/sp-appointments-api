@@ -59,9 +59,10 @@ public class TestController {
     @ApiOperation(value = "Updates an existing test", notes = "Needs an ID parameter in query")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Successfully updated"),
             @ApiResponse(code = 400, message = "Invalid input")})
-    public ResponseEntity<TestDTO> put(@RequestBody TestDTO testDTO) {
-        if (testDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        testDTO = testService.put(testDTO);
+    public ResponseEntity<TestDTO> put(@RequestParam Long testId, @RequestBody TestDTO testDTO) {
+        if (testId == null || testDTO == null || testDTO.getId() != null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        testDTO = testService.put(testId, testDTO);
         return testDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(testDTO, HttpStatus.CREATED);
     }
 

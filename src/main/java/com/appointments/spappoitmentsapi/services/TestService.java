@@ -8,6 +8,6 @@ public interface TestService {
     List<TestDTO> getAll();
     TestDTO post(TestDTO testDTO);
     TestDTO getByID(Long id);
-    TestDTO put(TestDTO testDTO);
+    TestDTO put(Long testId,TestDTO testDTO);
     Boolean delete(Long id);
 }

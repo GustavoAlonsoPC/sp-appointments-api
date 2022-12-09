@@ -56,11 +56,10 @@ public class TestServiceImp implements TestService {
         return modelMapper.map(test, TestDTO.class);
     }
 
-    public TestDTO put(TestDTO testDTO) {
-        if (testDTO.getId() == null) return null;
-        if (!testRepository.existsById(testDTO.getId())) return null;
+    public TestDTO put(Long testId, TestDTO testDTO) {
+        if (!testRepository.existsById(testId))return null;
         this.modelMapper.getConfiguration().setSkipNullEnabled(true);
-        Test test = testRepository.findById(testDTO.getId()).get();
+        Test test = testRepository.findById(testId).get();
         modelMapper.map(testDTO, test);
         testRepository.save(test);
         return modelMapper.map(test, TestDTO.class);
