@@ -143,6 +143,8 @@ public class AppointmentServiceImp implements AppointmentService{
     }
 
     public Boolean deleteByAffiliate(Long affiliateId) {
-        return null;
+        if (!affiliateRepository.existsById(affiliateId)) return false;
+        appointmentRepository.deleteAppointmentByAffiliateId(affiliateId);
+        return true;
     }
 }
