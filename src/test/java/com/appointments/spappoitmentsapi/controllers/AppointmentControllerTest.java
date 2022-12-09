@@ -245,4 +245,46 @@ class AppointmentControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         assertThat(response.getBody()).isNull();
     }
+
+    @Test
+    void deleteByAffiliateId() {
+
+        when(appointmentServiceMock.deleteByAffiliate(1L)).thenReturn(true);
+        ResponseEntity<List<AppointmentDTO>> response = underTest.deleteByAffiliateOrTest(1L, null);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        assertThat(response.getBody()).isNull();
+    }
+
+    @Test
+    void deleteByTestId() {
+
+        when(appointmentServiceMock.deleteByTest(1L)).thenReturn(true);
+        ResponseEntity<List<AppointmentDTO>> response = underTest.deleteByAffiliateOrTest(null, 1L);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        assertThat(response.getBody()).isNull();
+    }
+
+    @Test
+    void deleteWhenAffAndTestAreNull() {
+
+        ResponseEntity<List<AppointmentDTO>> response = underTest.deleteByAffiliateOrTest(null, null);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNull();
+    }
+
+    @Test
+    void deleteWhenAffAndTestAreNotNull() {
+
+        ResponseEntity<List<AppointmentDTO>> response = underTest.deleteByAffiliateOrTest(1L, 1L);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNull();
+    }
 }
