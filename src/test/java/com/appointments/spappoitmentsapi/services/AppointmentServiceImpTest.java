@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -473,6 +474,25 @@ class AppointmentServiceImpTest {
         when(appointmentRepositoryMock.existsById(idOfExistingAppointment)).thenReturn(false);
         Boolean result = underTest.delete(idOfExistingAppointment);
 
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void deleteAllAppOfATest() {
+        Long idOfExistingTest = 1L;
+        when(testRepositoryMock.existsById(idOfExistingTest)).thenReturn(true);
+        doNothing().when(appointmentRepositoryMock).deleteAppointmentByTestId(idOfExistingTest);
+
+        Boolean result = underTest.deleteByTest(idOfExistingTest);
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void deleteAllAppOfAUnexistingTest() {
+        Long idOfNonExistingTest = 999L;
+        when(testRepositoryMock.existsById(idOfNonExistingTest)).thenReturn(false);
+
+        Boolean result = underTest.deleteByTest(idOfNonExistingTest);
         assertThat(result).isFalse();
     }
 
