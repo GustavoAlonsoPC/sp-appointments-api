@@ -74,7 +74,7 @@ class AppointmentRepositoryTest {
 
     @Test
     void getAppointmentByAffiliateId() {
-        List<Appointment> appointments = underTest.getAppointmentByAffiliateId(9L);
+        List<Appointment> appointments = underTest.getAppointmentByAffiliateId(13L);
         assertThat(appointments).isNotNull();
         assertThat(appointments.size()).isNotEqualTo(0);
     }
@@ -88,14 +88,20 @@ class AppointmentRepositoryTest {
 
     @Test
     void getAppointmentByTestId() {
-        List<Appointment> appointments = underTest.getAppointmentsByTestId(1L);
+        List<Appointment> appointments = underTest.getAppointmentsByTestId(5L);
         assertThat(appointments).isNotNull();
         assertThat(appointments.size()).isNotEqualTo(0);
     }
 
     @Test
     void deleteByAffiliate() {
-        underTest.deleteAppointmentByAffiliateId(13L);
+        underTest.deleteAppointmentByAffiliateId(17L);
+        assertThat(underTest.count()).isEqualTo(3);
+    }
+
+    @Test
+    void deleteByTest() {
+        underTest.deleteAppointmentByTestId(1L);
         assertThat(underTest.count()).isEqualTo(3);
     }
 }
