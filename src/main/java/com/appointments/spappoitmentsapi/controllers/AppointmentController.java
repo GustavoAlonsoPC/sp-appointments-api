@@ -56,8 +56,10 @@ public class AppointmentController {
     @ApiOperation(value = "Updates an existing appointment", notes = "Needs an ID parameter in query")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Successfully updated"),
             @ApiResponse(code = 400, message = "Invalid input")})
-    public ResponseEntity<AppointmentDTO> put(@RequestBody AppointmentDTO appointmentDTO) {
-        appointmentDTO = appointmentService.put(appointmentDTO);
+    public ResponseEntity<AppointmentDTO> put(@RequestParam Long appointmentId, @RequestBody AppointmentDTO appointmentDTO) {
+        if (appointmentId == null || appointmentDTO == null || appointmentDTO.getId() != null)
+            return ResponseEntity.badRequest().build();
+        appointmentDTO = appointmentService.put(appointmentId, appointmentDTO);
         return appointmentDTO == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(appointmentDTO, HttpStatus.CREATED);
     }
 

@@ -10,7 +10,7 @@ public interface AppointmentService {
     List<AppointmentDTO> getAll();
     AppointmentDTO post(AppointmentDTO appointmentDTO);
     AppointmentDTO getByID(Long id);
-    AppointmentDTO put(AppointmentDTO appointmentDTO);
+    AppointmentDTO put(Long appointmentId, AppointmentDTO appointmentDTO);
     Boolean delete(Long id);
     List<AppointmentDTO> getByAffiliateID(Long idAffiliate);
     List<AppointmentDTO> getByDate(LocalDate localDate);

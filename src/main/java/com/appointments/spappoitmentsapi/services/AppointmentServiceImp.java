@@ -80,11 +80,10 @@ public class AppointmentServiceImp implements AppointmentService{
         return modelMapper.map(appointment, AppointmentDTO.class);
     }
 
-    public AppointmentDTO put(AppointmentDTO appointmentDTO) {
-        if (appointmentDTO.getId() == null) return null;
-        if (!appointmentRepository.existsById(appointmentDTO.getId())) return null;
+    public AppointmentDTO put(Long appointmentId, AppointmentDTO appointmentDTO) {
+        if (!appointmentRepository.existsById(appointmentId)) return null;
         this.modelMapper.getConfiguration().setSkipNullEnabled(true);
-        Appointment appointment = appointmentRepository.findById(appointmentDTO.getId()).get();
+        Appointment appointment = appointmentRepository.findById(appointmentId).get();
         if (appointmentDTO.getIdAffiliate() != null) {
             if (!affiliateRepository.existsById(appointmentDTO.getIdAffiliate())) return null;
             Affiliate affiliateUpdated = affiliateRepository.findById(appointmentDTO.getIdAffiliate()).get();
