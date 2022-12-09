@@ -65,4 +65,15 @@ public class AppointmentController {
         if (appointmentDTOList.isEmpty()) return ResponseEntity.noContent().build();
         return new ResponseEntity<>(appointmentDTOList, HttpStatus.OK);
     }
+
+    @DeleteMapping
+    public ResponseEntity deleteByAffiliateOrTest(@RequestParam(required = false) Long affiliateId,
+                                            @RequestParam(required = false) Long testId) {
+        if (affiliateId != null && testId != null) return ResponseEntity.badRequest().build();
+        if (affiliateId == null && testId == null) return ResponseEntity.badRequest().build();
+        Boolean result = testId == null ? appointmentService.deleteByAffiliate(affiliateId)
+                : appointmentService.deleteByTest(testId);
+
+        return result ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
 }
