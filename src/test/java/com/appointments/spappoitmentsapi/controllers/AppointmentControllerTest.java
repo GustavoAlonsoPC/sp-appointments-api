@@ -123,8 +123,8 @@ class AppointmentControllerTest {
         AppointmentDTO appUpdater = new AppointmentDTO();
         AppointmentDTO appUpdatedMock = new AppointmentDTO();
 
-        when(appointmentServiceMock.put(appUpdater)).thenReturn(appUpdatedMock);
-        ResponseEntity<AppointmentDTO> response = underTest.put(appUpdater);
+        when(appointmentServiceMock.put(1L, appUpdater)).thenReturn(appUpdatedMock);
+        ResponseEntity<AppointmentDTO> response = underTest.put(1L, appUpdater);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -135,8 +135,7 @@ class AppointmentControllerTest {
     void putWhenNoValidEntry() {
         AppointmentDTO appUpdater = new AppointmentDTO();
 
-        when(appointmentServiceMock.put(appUpdater)).thenReturn(null);
-        ResponseEntity<AppointmentDTO> response = underTest.put(appUpdater);
+        ResponseEntity<AppointmentDTO> response = underTest.put(1L, null);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
@@ -145,7 +144,7 @@ class AppointmentControllerTest {
 
     @Test
     void putWithNullEntry() {
-        ResponseEntity<AppointmentDTO> response = underTest.put(null);
+        ResponseEntity<AppointmentDTO> response = underTest.put(null,null);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);

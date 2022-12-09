@@ -276,14 +276,13 @@ class AppointmentServiceImpTest {
                 test1);
 
         AppointmentDTO appUpdater = new AppointmentDTO();
-        appUpdater.setId(existingAppointment.getId());
         appUpdater.setDateAppointment(LocalDate.of(2023, 01, 18));
 
-        when(appointmentRepositoryMock.existsById(appUpdater.getId())).thenReturn(true);
-        when(appointmentRepositoryMock.findById(appUpdater.getId())).thenReturn(Optional.of(existingAppointment));
+        when(appointmentRepositoryMock.existsById(1L)).thenReturn(true);
+        when(appointmentRepositoryMock.findById(1L)).thenReturn(Optional.of(existingAppointment));
         when(appointmentRepositoryMock.save(any(Appointment.class))).thenReturn(existingAppointment);
 
-        AppointmentDTO result = underTest.put(appUpdater);
+        AppointmentDTO result = underTest.put(1L, appUpdater);
 
         assertThat(result.getDateAppointment()).isEqualTo(appUpdater.getDateAppointment());
         assertThat(result.getId()).isEqualTo(existingAppointment.getId());
@@ -294,10 +293,9 @@ class AppointmentServiceImpTest {
     void putWhenNoIdProvided() {
 
         AppointmentDTO appUpdater = new AppointmentDTO();
-        appUpdater.setId(null);
         appUpdater.setDateAppointment(LocalDate.of(2023, 01, 18));
 
-        AppointmentDTO result = underTest.put(appUpdater);
+        AppointmentDTO result = underTest.put(null, appUpdater);
 
         assertThat(result).isNull();
     }
@@ -306,11 +304,10 @@ class AppointmentServiceImpTest {
     void putWhenNoExistingAppointment() {
 
         AppointmentDTO appUpdater = new AppointmentDTO();
-        appUpdater.setId(999L);
         appUpdater.setDateAppointment(LocalDate.of(2023, 01, 18));
 
-        when(appointmentRepositoryMock.existsById(appUpdater.getId())).thenReturn(false);
-        AppointmentDTO result = underTest.put(appUpdater);
+        when(appointmentRepositoryMock.existsById(999L)).thenReturn(false);
+        AppointmentDTO result = underTest.put(999L, appUpdater);
 
         assertThat(result).isNull();
     }
@@ -337,7 +334,6 @@ class AppointmentServiceImpTest {
         existingAppointment.setHourAppointment(LocalTime.of(12, 00));
 
         AppointmentDTO appUpdater = new AppointmentDTO();
-        appUpdater.setId(existingAppointment.getId());
         appUpdater.setIdAffiliate(newAff.getId());
 
         updatedAppointmentMock.setId(existingAppointment.getId());
@@ -347,13 +343,13 @@ class AppointmentServiceImpTest {
 
         updatedAppointmentMock.setAffiliate(newAff);
 
-        when(appointmentRepositoryMock.existsById(appUpdater.getId())).thenReturn(true);
-        when(appointmentRepositoryMock.findById(appUpdater.getId())).thenReturn(Optional.of(existingAppointment));
+        when(appointmentRepositoryMock.existsById(1L)).thenReturn(true);
+        when(appointmentRepositoryMock.findById(1L)).thenReturn(Optional.of(existingAppointment));
         when(affiliateRepositoryMock.existsById(appUpdater.getIdAffiliate())).thenReturn(true);
         when(affiliateRepositoryMock.findById(appUpdater.getIdAffiliate())).thenReturn(Optional.of(newAff));
         when(appointmentRepositoryMock.save(any(Appointment.class))).thenReturn(updatedAppointmentMock);
 
-        AppointmentDTO result = underTest.put(appUpdater);
+        AppointmentDTO result = underTest.put(1L, appUpdater);
 
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(existingAppointment.getId());
@@ -375,13 +371,12 @@ class AppointmentServiceImpTest {
         existingAppointment.setAffiliate(oldAffiliate);
 
         AppointmentDTO appUpdater = new AppointmentDTO();
-        appUpdater.setId(existingAppointment.getId());
         appUpdater.setIdAffiliate(999L);
 
-        when(appointmentRepositoryMock.existsById(appUpdater.getId())).thenReturn(true);
-        when(appointmentRepositoryMock.findById(appUpdater.getId())).thenReturn(Optional.of(existingAppointment));
+        when(appointmentRepositoryMock.existsById(1L)).thenReturn(true);
+        when(appointmentRepositoryMock.findById(1L)).thenReturn(Optional.of(existingAppointment));
         when(affiliateRepositoryMock.existsById(appUpdater.getIdAffiliate())).thenReturn(false);
-        AppointmentDTO result = underTest.put(appUpdater);
+        AppointmentDTO result = underTest.put(1L, appUpdater);
 
         assertThat(result).isNull();
     }
@@ -410,7 +405,6 @@ class AppointmentServiceImpTest {
         existingAppointment.setHourAppointment(LocalTime.of(12, 00));
 
         AppointmentDTO appUpdater = new AppointmentDTO();
-        appUpdater.setId(existingAppointment.getId());
         appUpdater.setIdTest(newTest.getId());
 
         updatedAppointmentMock.setId(existingAppointment.getId());
@@ -420,13 +414,13 @@ class AppointmentServiceImpTest {
 
         updatedAppointmentMock.setTest(newTest);
 
-        when(appointmentRepositoryMock.existsById(appUpdater.getId())).thenReturn(true);
-        when(appointmentRepositoryMock.findById(appUpdater.getId())).thenReturn(Optional.of(existingAppointment));
+        when(appointmentRepositoryMock.existsById(1L)).thenReturn(true);
+        when(appointmentRepositoryMock.findById(1L)).thenReturn(Optional.of(existingAppointment));
         when(testRepositoryMock.existsById(appUpdater.getIdTest())).thenReturn(true);
         when(testRepositoryMock.findById(appUpdater.getIdTest())).thenReturn(Optional.of(newTest));
         when(appointmentRepositoryMock.save(any(Appointment.class))).thenReturn(updatedAppointmentMock);
 
-        AppointmentDTO result = underTest.put(appUpdater);
+        AppointmentDTO result = underTest.put(1L, appUpdater);
 
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(existingAppointment.getId());
@@ -448,13 +442,12 @@ class AppointmentServiceImpTest {
         existingAppointment.setTest(oldTest);
 
         AppointmentDTO appUpdater = new AppointmentDTO();
-        appUpdater.setId(existingAppointment.getId());
         appUpdater.setIdTest(999L);
 
-        when(appointmentRepositoryMock.existsById(appUpdater.getId())).thenReturn(true);
-        when(appointmentRepositoryMock.findById(appUpdater.getId())).thenReturn(Optional.of(existingAppointment));
+        when(appointmentRepositoryMock.existsById(1L)).thenReturn(true);
+        when(appointmentRepositoryMock.findById(1L)).thenReturn(Optional.of(existingAppointment));
         when(testRepositoryMock.existsById(appUpdater.getIdTest())).thenReturn(false);
-        AppointmentDTO result = underTest.put(appUpdater);
+        AppointmentDTO result = underTest.put(1L, appUpdater);
 
         assertThat(result).isNull();
     }
