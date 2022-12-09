@@ -1,33 +1,39 @@
 # Medical Appointments API
 
-## Definición estructural
+## Structural definition
 
-| Tabla  |  Campos |
-|--------|--------|
-|Tests: | {“id”, “name”, “description”} |
-|affiliates: | {“id”, “name”, “age”, “mail”} |
-|appoinments: | {“id”, “date”, “hour”, “id_test”, “id_affiliate”} |
+| Table         | Field                                             |
+|---------------|---------------------------------------------------|
+| Tests:        | {“id”, “name”, “description”}                     |
+| affiliates:   | {“id”, “name”, “age”, “mail”}                     |
+| appointments: | {“id”, “date”, “hour”, “id_test”, “id_affiliate”} |
 
 
-## Contrato de datos
+## Data constraints
 
-| Campo        | Tipo   |
-|--------------|--------|
-| id:          | number |
-| name:        | string |
-| description: | string |
-| mail:        | string |
+| Field        | Type                |
+|--------------|---------------------|
+| id:          | number              |
+| name:        | string              |
+| description: | string              |
+| mail:        | string              |
 | date:        | Date (‘dd/MM/yyyy’) |
-| hour:        | Date (‘hh:mm’) |
+| hour:        | Date (‘hh:mm’)      |
 
 
 ## Controllers
 
 
-| Controller    | Methods                                                                                                                 |
-|---------------|-------------------------------------------------------------------------------------------------------------------------|
-| tests:        | getlist <br/>getbyid {id}<br/> post <br/> put <br/> delete {id}                                                         |
-| affiliates:   | getlist <br/>  getbyid {id} <br/> post <br/> put <br/> delete {id}                                                      |
+| Controller    | Methods                                                                                                                        |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------|
+| tests:        | getlist <br/>getbyid {id}<br/> post <br/> put <br/> delete {id}                                                                |
+| affiliates:   | getlist <br/>  getbyid {id} <br/> post <br/> put <br/> delete {id}                                                             |
 | appointments: | getlist <br/>  getbyid {id} <br/> post <br/> put <br/> delete {id} <br/> getbydate {date} <br/> getbyaffiliates {id_affiliate} |
 
+
+## Solution
+
+For the solution of this project the following was implemented:
+
+![](imgs/APIModel.png "APIStructure")
 
