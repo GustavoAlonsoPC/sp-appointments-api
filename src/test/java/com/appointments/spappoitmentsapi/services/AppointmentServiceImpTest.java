@@ -497,6 +497,24 @@ class AppointmentServiceImpTest {
     }
 
     @Test
+    void deleteAllAppOfAnAff() {
+        Long idOfExistingAff = 1L;
+        when(affiliateRepositoryMock.existsById(idOfExistingAff)).thenReturn(true);
+
+        Boolean result = underTest.deleteByAffiliate(idOfExistingAff);
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void deleteAllAppOfAUnexistingAff() {
+        Long idOfNonExistingAff = 999L;
+        when(affiliateRepositoryMock.existsById(idOfNonExistingAff)).thenReturn(false);
+
+        Boolean result = underTest.deleteByAffiliate(idOfNonExistingAff);
+        assertThat(result).isFalse();
+    }
+
+    @Test
     void getByAffiliateID() {
         Affiliate aff1 = new Affiliate(1L, "AffName1", 20, "mail1");
 
