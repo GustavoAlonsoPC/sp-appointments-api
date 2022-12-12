@@ -35,7 +35,7 @@
 
 For the solution of this project the following was implemented:
 
-![](imgs/APIModel.png "APIStructure")
+![APIModel.png](imgs/APIModel.png "APIStructure")
 
 # Test Coverage:
 
