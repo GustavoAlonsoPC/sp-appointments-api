@@ -37,3 +37,6 @@ For the solution of this project the following was implemented:
 
 ![](imgs/APIModel.png "APIStructure")
 
+# Test Coverage:
+
+![img.png](imgs/img.png)
