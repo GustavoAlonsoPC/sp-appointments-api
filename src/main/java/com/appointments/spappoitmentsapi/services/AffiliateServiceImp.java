@@ -69,7 +69,7 @@ public class AffiliateServiceImp implements AffiliateService{
         if (affiliateRepository.existsById(id)) {
             try {
                 affiliateRepository.deleteById(id);
-            } catch (DataIntegrityViolationException e) {
+            } catch (Exception e) {
                 throw e;
             }
             return true;

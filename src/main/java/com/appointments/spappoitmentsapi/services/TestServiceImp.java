@@ -69,7 +69,7 @@ public class TestServiceImp implements TestService {
         if (testRepository.existsById(id)) {
             try {
                 testRepository.deleteById(id);
-            } catch (DataIntegrityViolationException e) {
+            } catch (Exception e) {
                 throw e;
             }
             return true;

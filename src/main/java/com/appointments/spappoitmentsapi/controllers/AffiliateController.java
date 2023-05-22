@@ -76,7 +76,7 @@ public class AffiliateController {
     public ResponseEntity delete(@PathVariable Long id) {
         try {
             return affiliateService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
-        } catch (DataIntegrityViolationException e) {
+        } catch (Exception e) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("message", "trying to delete referenced affiliate");
             map.put("error", HttpStatus.INTERNAL_SERVER_ERROR.value());

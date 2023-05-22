@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -34,4 +33,46 @@ public class Appointment {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_test")
     private Test test;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public LocalDate getDateAppointment() {
+		return dateAppointment;
+	}
+
+	public void setDateAppointment(LocalDate dateAppointment) {
+		this.dateAppointment = dateAppointment;
+	}
+
+	public LocalTime getHourAppointment() {
+		return hourAppointment;
+	}
+
+	public void setHourAppointment(LocalTime hourAppointment) {
+		this.hourAppointment = hourAppointment;
+	}
+
+	public Affiliate getAffiliate() {
+		return affiliate;
+	}
+
+	public void setAffiliate(Affiliate affiliate) {
+		this.affiliate = affiliate;
+	}
+
+	public Test getTest() {
+		return test;
+	}
+
+	public void setTest(Test test) {
+		this.test = test;
+	}
+    
+    
 }
